@@ -33,7 +33,7 @@ routerUsuarioSession.use(function(req, res, next) {
 });
 
 //Aplicar routerUsuarioSession
-app.use("/canciones/agregar",routerUsuarioSession);
+app.use("/inmuebles/agregar",routerUsuarioSession);
 app.use("/misinmuebles",routerUsuarioSession);
 app.use("/cancion/comprar",routerUsuarioSession);
 app.use("/compras",routerUsuarioSession);
