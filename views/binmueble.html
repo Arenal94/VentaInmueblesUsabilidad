@@ -3,69 +3,70 @@
 {% block titulo %} Detalles de {{ inmueble.nombre }}  {% endblock %} 
 
 {% block contenido_principal %}
-	 <div class="row">
-			<div class="media col-xs-10">
-		  <div class="media-left media-middle col-xs-6">
-			<img class="media-object" src="/inmuebles/{{ inmueble._id.toString() }}.png" width="100%">
-			</div>
-		  <div class="media-body">
-			 <h2>{{ inmueble.nombre }} <small> {{ inmueble.tipoInmueble }}</small> <a href="#"><span class="star glyphicon glyphicon-star-empty" style="font-size: 40px"></span></a></h2>
-			 <p>Baños:{{ inmueble.banhos }}</p>
-			 <p>Habitaciones:{{ inmueble.habitaciones }}</p>
-			 <p>Superficie:{{ inmueble.superficie }}</p>
-			 <p>Ubicacion:{{ inmueble.ubicacion }}</p>
+<div class="row">
+    <div class="media col-xs-10">
+        <div class="media-left media-middle col-xs-6">
+            <img class="media-object" src="/inmuebles/{{ inmueble._id.toString() }}.png" width="100%">
+        </div>
+        <div class="media-body">
+            <h2>{{ inmueble.nombre }} <small> {{ inmueble.tipoInmueble }}</small> <a href="#"><i class="heart fa fa-heart-o"></i></a></h2>
+            <p>Baños:{{ inmueble.banhos }}</p>
+            <p>Habitaciones:{{ inmueble.habitaciones }}</p>
+            <p>Superficie:{{ inmueble.superficie }}</p>
+            <p>Ubicacion:{{ inmueble.ubicacion }}</p>
 
-			 <a class="btn btn-primary pull-right" 
-		 	href="/inmueble/comprar/{{ inmueble._id.toString() }}">{{ inmueble.precio }} €</a>
-			 <!-- Cambiar el precio por "reproducir" si ya está comprada -->
-		  </div>
-		</div>
-	  </div>
-	  
-	 <!-- -->
-	 <div class="row" style="margin-top: 20px;" >
-		<div class="media col-xs-10">
-			  <div class="media-left media-middle">
-				<a href="#">
-				  <img class="media-object" src="/img/user.png" >
-				</a>
-			  </div>
-			  <div class="media-body">
-				<h4 class="media-heading">Descripcion</h4>
-					<p>{{ inmueble.descripcion || "No hay una descripcion disponible"}}</p>
-				</div>
-				<p>Email de contacto: {{ inmueble.vendedor || "No especificado"}}</p>
-		  </div>
-		<div class="media col-xs-10">
-			  <div class="media-body">
-				<h4 class="media-heading">Localizacion</h4>
-				<p>{{ inmueble.ubicacion }}</p>
-				<p id="lat" style="display:none">{{ inmueble.lat }}</p>
-				<p id="lng" style="display:none">{{ inmueble.lng }}</p>
-				<div id="googleMap" style="width:100%;height:300px;"></div>
-			  </div>
-		  </div>
-		</div>
-		<script>
-				function myMap() {
-				var lat= parseFloat($("#lat").text());
-				var lng= parseFloat($("#lng").text());
-				console.log(lat);
-				var mapProp= {
-						center:new google.maps.LatLng(lat,lng),
-						zoom:8,
-				};
-				var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-				marker = new google.maps.Marker({
-					position: new google.maps.LatLng(lat, lng),
-					 map: map,
-					title: 'Ubicación de la vivienda'
-			});
-				}
-				$(".star.glyphicon").click(function() {
-  			$(this).toggleClass("glyphicon-star glyphicon-star-empty");
-				});
-			</script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
+            <a class="btn btn-primary pull-right" 
+               href="/inmueble/comprar/{{ inmueble._id.toString() }}">{{ inmueble.precio }} €</a>
+            <!-- Cambiar el precio por "reproducir" si ya está comprada -->
+        </div>
+    </div>
+</div>
+
+<!-- -->
+<div class="row" style="margin-top: 20px;" >
+    <div class="media col-xs-10">
+        <div class="media-left media-middle">
+            <a href="#">
+                <img class="media-object" src="/img/user.png" >
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">Descripcion</h4>
+            <p>{{ inmueble.descripcion || "No hay una descripcion disponible"}}</p>
+        </div>
+        <p>Email de contacto: {{ inmueble.vendedor || "No especificado"}}</p>
+    </div>
+    <div class="media col-xs-10">
+        <div class="media-body">
+            <h4 class="media-heading">Localizacion</h4>
+            <p>{{ inmueble.ubicacion }}</p>
+            <p id="lat" style="display:none">{{ inmueble.lat }}</p>
+            <p id="lng" style="display:none">{{ inmueble.lng }}</p>
+            <div id="googleMap" style="width:100%;height:300px;"></div>
+        </div>
+    </div>
+</div>
+<script>
+    function myMap() {
+        var lat= parseFloat($("#lat").text());
+        var lng= parseFloat($("#lng").text());
+        console.log(lat);
+        var mapProp= {
+            center:new google.maps.LatLng(lat,lng),
+            zoom:8,
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            map: map,
+            title: 'Ubicación de la vivienda'
+        });
+    }
+    $(".heart.fa").click(function() {
+        $(this).toggleClass("fa-heart fa-heart-o");
+    });
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
 
 {% endblock %}
