@@ -1,9 +1,6 @@
 
 module.exports = function(app, swig, gestorBD) {
 
-	app.get("/usuarios", function(req, res) {
-		res.send("ver usuarios");
-	});
 	app.get("/identificarse", function(req, res) {
 		var respuesta = swig.renderFile('views/bidentificacion.html', {});
 		res.send(respuesta);
@@ -26,7 +23,7 @@ module.exports = function(app, swig, gestorBD) {
 
 			} else {
 				req.session.usuario = usuarios[0].email;
-				res.redirect("/publicaciones");
+				res.redirect("/inmuebles");
 
 			}
 

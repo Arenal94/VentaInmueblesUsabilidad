@@ -63,7 +63,22 @@ module.exports = function(app, swig, gestorBD) {
             });
             res.send(respuesta);
         })
- 
+        app.get("/misinmuebles", function(req, res) {
+            var criterio = {
+                vendedor : req.session.usuario
+            };
+    
+            gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+                if (inmuebles == null) {
+                    res.send("Error al listar ");
+                } else {
+                    var respuesta = swig.renderFile('views/bmisinmuebles.html', {
+                        inmuebles : inmuebles
+                    });
+                    res.send(respuesta);
+                }
+            });
+        });
         app.post("/inmueble",function(req, res) {
             var inmueble = {
                                 nombre : req.body.nombre,
