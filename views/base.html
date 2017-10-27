@@ -27,7 +27,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li id="mTienda" class="active"><a href="/inmuebles">Lista de Inmuebles</a></li>
+                        <li id="mTienda"><a href="/inmuebles">Lista de Inmuebles</a></li>
                         <li id="mMisInmuebles"><a href="/misinmuebles">Mis Inmuebles</a></li>
                         <li id="mCompras"><a href="/compras">Mis favoritos</a></li>
                     </ul>
@@ -61,6 +61,11 @@
                     return results === null ? '' : 
                     decodeURIComponent(results[1].replace(/\+/g, ' '));
                 };
+                $(".nav a").on("click", function(){
+                    if($(".nav").find(".active"))
+                        $(".nav").find(".active").removeClass("active");
+                    $(this).parent().addClass("active");
+                });
             </script>
 
             <!-- Contenido -->

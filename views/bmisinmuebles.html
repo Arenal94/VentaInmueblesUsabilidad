@@ -15,6 +15,7 @@
 				<th>Nombre</th>
 				<th>Tipo Inmueble</th>
 				<th>Características</th>
+				<th>Última modificación</th>
 				<th class="col-md-1"></th>
 			</tr>
 		</thead>
@@ -28,6 +29,12 @@
 					<li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
 					<li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
 				</ul>
+				</td>
+				<td>{% if inmueble.fechaModificacion %}
+					{{inmueble.fechaModificacion.getDate()}}/{{inmueble.fechaModificacion.getMonth()+1}}/{{inmueble.fechaModificacion.getFullYear()}} {{inmueble.fechaModificacion.getHours()}}:{{inmueble.fechaModificacion.getMinutes()}}
+					{% else %} 
+					No se ha modificado
+					{% endif %}
 				</td>
 				<td><a href="/inmueble/modificar/{{ inmueble._id.toString() }}">Modificar</a> <br>
 					<a href="/inmueble/eliminar/{{ inmueble._id.toString() }}">Eliminar</a> <br>
