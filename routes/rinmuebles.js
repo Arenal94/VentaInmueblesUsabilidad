@@ -69,6 +69,74 @@ module.exports = function(app, swig, gestorBD) {
             }
         });
     }),
+    app.get('/inmueble/modificar/:id', function(req, res) {
+		var criterio = {
+			"_id" : gestorBD.mongo.ObjectID(req.params.id)
+		};
+
+		gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+			if (inmuebles == null) {
+				res.send(respuesta);
+			} else {
+				var respuesta = swig.renderFile('views/binmuebleModificar.html',
+						{
+							inmueble : inmuebles[0]
+						});
+				res.send(respuesta);
+			}
+		});
+	}),
+    app.post('/inmueble/modificar/:id', function(req, res) {
+		var id = req.params.id;
+		var criterio = {
+			"_id" : gestorBD.mongo.ObjectID(id)
+		};
+
+		var inmueble = {
+			nombre : req.body.nombre,
+            tipoInmueble : req.body.tipoInmueble,
+            banhos : req.body.banhos,
+            habitaciones : req.body.habitaciones,
+            superficie : req.body.superficie,
+            descripcion : req.body.descripcion,
+            precio : req.body.precio,
+            vendedor : req.session.usuario,
+            ubicacion : req.body.ubicacion,
+            lat: req.body.lat,
+            lng: req.body.lng,
+            fechaModificacion: new Date()
+		}
+
+		gestorBD.modificarInmueble(criterio, inmueble, function(result) {
+			if (result == null) {
+				res.send("Error al modificar ");
+			} else {
+				paso1ModificarFotos(req.files, id, function(result) {
+					if (result == null) {
+						res.send("Error en la modificación");
+					} else {
+						res.redirect("/publicaciones");
+					}
+				});
+
+			}
+		});
+
+    })
+    function paso1ModificarFotos(files, id, callback) {
+		if (files.fotos != null) {
+			var imagen = files.fotos;
+			imagen.mv('public/inmuebles/' + id + '.png', function(err) {
+				if (err) {
+					callback(null); // ERROR
+				} else {
+					callback(true); // FIN
+				}
+			});
+		} else {
+			callback(true); // FIN
+		}
+	}
     app.get('/inmuebles/agregar', function(req, res) {
             var respuesta = swig.renderFile('views/bagregar.html', {
     

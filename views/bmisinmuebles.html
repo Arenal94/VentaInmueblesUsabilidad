@@ -26,10 +26,10 @@
 				<td> <ul class="tipsMisInmuebles">
 					<li><img src="/img/surface.png"/> {{ inmueble.superficie }} m<sup>2</sup></li>
 					<li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
-					<li><img src="/img/bed.png"/> {{ inmueble.banhos }}</li>
+					<li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
 				</ul>
 				</td>
-				<td><a href="/cancion/modificar/{{ cancion._id.toString() }}">Modificar</a> <br>
+				<td><a href="/inmueble/modificar/{{ inmueble._id.toString() }}">Modificar</a> <br>
 					<a href="/inmueble/eliminar/{{ inmueble._id.toString() }}">Eliminar</a> <br>
 					<a href="/inmueble/{{ inmueble._id.toString() }}">Ver en Detalle</a> <br>
 			    </td>

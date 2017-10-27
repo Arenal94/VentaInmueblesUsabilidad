@@ -189,6 +189,23 @@ module.exports = {
 			}
 		});
 	},
+	modificarInmueble : function(criterio, inmueble, funcionCallback) {
+		this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+			if (err) {
+				funcionCallback(null);
+			} else {
+				var collection = db.collection('inmuebles');
+				collection.update(criterio, {$set: inmueble}, function(err, result) {
+					if (err) {
+						funcionCallback(null);
+					} else {
+						funcionCallback(result);
+					}
+					db.close();
+				});
+			}
+		});
+	},
 	eliminarInmueble : function(criterio, funcionCallback) {
 		this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
 			if (err) {

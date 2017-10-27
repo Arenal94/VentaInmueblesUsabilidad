@@ -12,7 +12,7 @@
             <h2>{{ inmueble.nombre }} <small> {{ inmueble.tipoInmueble }}</small> <a href="#"><i class="heart fa fa-heart-o"></i></a></h2>
             <p>Baños:{{ inmueble.banhos }}</p>
             <p>Habitaciones:{{ inmueble.habitaciones }}</p>
-            <p>Superficie:{{ inmueble.superficie }}</p>
+            <p>Superficie:{{ inmueble.superficie }} m<sup>2</sup></p>
             <p>Ubicacion:{{ inmueble.ubicacion }}</p>
             <p>Fecha publicación: {{inmueble.fechaPublicacion.getDate()}}/{{inmueble.fechaPublicacion.getMonth()+1}}/{{inmueble.fechaPublicacion.getFullYear()}} {{inmueble.fechaPublicacion.getHours()}}:{{inmueble.fechaPublicacion.getMinutes()}}</p>
             <a class="btn btn-primary pull-right">{{ inmueble.precio }} €</a>
