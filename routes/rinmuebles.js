@@ -1,5 +1,4 @@
 module.exports = function(app, swig, gestorBD) {
-    
     app.get("/inmuebles", function(req, res) {
 		var criterio = {};
 		if (req.query.busqueda != null) {
@@ -174,23 +173,32 @@ module.exports = function(app, swig, gestorBD) {
                                 lng: req.body.lng,
                                 fechaPublicacion: new Date()
                             }
-                            // Conectarse
             gestorBD.insertarInmueble(inmueble,function(id) {
                 if (id == null) {
                     res.send("Error al insertar ");
                 } else {
                     if (req.files.fotos != null) {
-                        console.log(req.files.fotos)
-                        var imagen = req.files.fotos;
-                        imagen.mv('public/inmuebles/'+ id+ '.png',function(err) {
-                            if (err) {
-                                res.send("Error al subir la portada"); 
-                            }
-                            else{
-                                res.send("OK");
-                            }
-                         });
+                        if(req.files.fotos.length!=undefined){
+                        for (i = 0; i < req.files.fotos.length; i++) { 
+                            var imagen = req.files.fotos[i];
+                            imagen.mv('public/inmuebles/'+ id+"_"+(i+1)+'.png',function(err) {
+                                if (err) {
+                                    res.send("Error al subir las imagenes"); 
+                                }
+                            });
                         }
+                        res.send("OK");
+                    } else{
+                        var imagen = req.files.fotos;
+                        imagen.mv('public/inmuebles/'+ id+"_1"+'.png',function(err) {
+                            if (err) {
+                                res.send("Error al subir las imagenes"); 
+                            }
+                        });
+                        res.send("OK");
+                    }
+                    }
+                    
                     }
                 });
             });
