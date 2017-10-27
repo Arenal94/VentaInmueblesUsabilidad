@@ -1,50 +1,63 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block titulo %} Listado de Inmuebles – Housing {% endblock %} 
 
 {% block contenido_principal %}
 <!-- Búsqueda -->
-<div class="row">
-    <div id="custom-search-input ">
-        <form method="get" action="/tienda" >
-            <div
-                 class="input-group col-xs-8 col-sm-6 col-md-4 col-lg-5 pull-right">
-                <input type="text" class="search-query form-control"
-                       placeholder="Busqueda de inmuebles" name="busqueda"/>
-                <span class="input-group-btn">
-                    <button class="btn" type="submit">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-            </div>
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3" style:"display:flex">
+    <div class="panel-heading">
+        <img src="/img/logo.png" alt="logo"/>
+        <h4 class="panel-title">Filtra tus preferencias</h4>
+    </div>
+    <div class="panel-body">
+        <form role="form">
+            <fieldset>
+                <div class="form-group">
+                    <label for="tipoInmueble">Tipo de inmueble:</label>
+                    <select class="form-control" id="tipoInmueble">
+                        <option>Pisos</option>
+                        <option>Casa</option>
+                        <option>Bajo</option>
+                        <option>Local</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input class="form-control" placeholder="Desde" id="precioDesde" type="number" step="1000">
+                    <br>
+                    <input class="form-control" placeholder="Hasta" id="precioHasta" type="number" step="1000">
+                </div>
+                <div class="form-group">
+                    <label for="ubicacion">Ubicación:</label>
+                    <input name="ubicacion" type="text" class="form-control" id="ubicacion" placeholder="Centro, Calle, ..."/>
+                </div>
+                <button type="submit" class="btn btn-lg btn-default filtrar">Buscar</button>
+            </fieldset>
         </form>
     </div>
 </div>
-
-<h2>Inmuebles</h2>
 <div class="row">
-
-    <!-- http://librosweb.es/libro/bootstrap_3/capitulo_2/tipos_de_rejillas.html -->
     <!-- Inicio del Bloque canción  -->
     {% for inmueble in inmuebles %}
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 border" style:"display:flex">
-    <a class ="cardListaInmuebles" href="/inmueble/{{ inmueble._id.toString() }}"> 
-        <div style="width: 200px">
+    <!--<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 border" style:"display:flex">-->
+    <div class="col-lg-4 border padd" style:"display:flex">
+        <a class ="cardListaInmuebles" href="/inmueble/{{ inmueble._id.toString() }}"> 
+            <div style="width: 300px">
                 <div class="col-xs-16">
                     <img src="/inmuebles/{{ inmueble._id.toString() }}_1.png"  alt="logo" width="100%"/>
                 </div>
                 <!-- http://www.socicon.com/generator.php  -->
                 <div class="wrap">{{ inmueble.nombre }}</div>
 
-            <div class="small">{{ inmueble.tipoInmueble }}</div>
-            <div class="text-right">{{ inmueble.precio }} €</div>
-            <ul class="tipsListaInmuebles">
-                <li><img src="/img/surface.png"/> {{ inmueble.superficie }} m<sup>2</sup></li>
-                <li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
-                <li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
-            </ul>
-        </div>
-    </a>
+                <div class="small">{{ inmueble.tipoInmueble }}</div>
+                <div class="text-right">{{ inmueble.precio }} €</div>
+                <ul class="tipsListaInmuebles">
+                    <li><img src="/img/surface.png"/> {{ inmueble.superficie }} m<sup>2</sup></li>
+                    <li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
+                    <li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
+                </ul>
+            </div>
+        </a>
     </div>
     {% endfor %}
     <!-- Fin del Bloque canción  -->
@@ -60,7 +73,6 @@
         <script>
             $( "#pi-{{ actual}}" ).addClass("active");
         </script>
-
     </ul>
 </div>
 

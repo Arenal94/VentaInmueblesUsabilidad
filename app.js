@@ -106,8 +106,8 @@ app.use("/audios/",routerAudios);
 app.use(express.static('public'));
 
 app.set('port', 8081);
-//app.set('db','mongodb://localhost:27017/uomusic');
-app.set('db','mongodb://miw:miw@ds233895.mlab.com:33895/dpiu');
+app.set('db','mongodb://localhost:27017/uomusic');
+//app.set('db','mongodb://miw:miw@ds233895.mlab.com:33895/dpiu');
 app.set('clave','abcdefg');
 app.set('crypto',crypto);
 
