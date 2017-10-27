@@ -5,8 +5,14 @@
 {% block contenido_principal %}
 <div class="row">
     <div class="media col-xs-10">
-        <div class="media-left media-middle col-xs-6">
-            <img class="media-object" src="/inmuebles/{{ inmueble._id.toString() }}.png" width="100%">
+        <div class="media-left media-middle col-xs-8">
+                <div class="demo">
+                        {% for x in inmueble.imagenes %}
+                        {% if loop.first %}<ul id="lightSlider">{% endif %}
+                                <li data-thumb="/thumbs/{{ inmueble._id.toString() }}_{{ loop.index }}.png"> <img src="/inmuebles/{{ inmueble._id.toString() }}_{{ loop.index }}.png" /></li>
+                        {% if loop.last %}</ul>{% endif %}
+                        {% endfor %}
+                </div>
         </div>
         <div class="media-body">
             <h2>{{ inmueble.nombre }} <small> {{ inmueble.tipoInmueble }}</small> <a href="#"><i class="heart fa fa-heart-o"></i></a></h2>
@@ -21,6 +27,15 @@
     </div>
 </div>
 
+<script>
+    $('#lightSlider').lightSlider({
+    gallery: true,
+    item: 1,
+    loop: true,
+    slideMargin: 0,
+    thumbItem:9
+});
+</script>
 <!-- -->
 <div class="row" style="margin-top: 20px;" >
     <div class="media col-xs-10">

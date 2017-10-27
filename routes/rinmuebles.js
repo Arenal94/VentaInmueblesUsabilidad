@@ -159,6 +159,18 @@ module.exports = function(app, swig, gestorBD) {
         });
     });
     app.post("/inmueble",function(req, res) {
+        var imagenes = []
+        if (req.files.fotos != null) {
+            if(req.files.fotos.length==undefined){
+                imagenes.push(req.files.fotos);
+            }
+            else{
+                for (i = 0; i < req.files.fotos.length; i++) { 
+                    imagenes.push(req.files.fotos[i]);
+                }
+            }
+
+        }
         var inmueble = {
             nombre : req.body.nombre,
             tipoInmueble : req.body.tipoInmueble,
@@ -171,32 +183,29 @@ module.exports = function(app, swig, gestorBD) {
             ubicacion : req.body.ubicacion,
             lat: req.body.lat,
             lng: req.body.lng,
-            fechaPublicacion: new Date()
+            fechaPublicacion: new Date(),
+            imagenes: imagenes
         }
         gestorBD.insertarInmueble(inmueble,function(id) {
             if (id == null) {
                 res.send("Error al insertar ");
             } else {
-                if (req.files.fotos != null) {
-                    if(req.files.fotos.length!=undefined){
-                        for (i = 0; i < req.files.fotos.length; i++) { 
-                            var imagen = req.files.fotos[i];
+                if (imagenes != []) {
+                        for (i = 0; i < imagenes.length; i++) { 
+                            var imagen = imagenes[i];
                             imagen.mv('public/inmuebles/'+ id+"_"+(i+1)+'.png',function(err) {
                                 if (err) {
                                     res.send("Error al subir las imagenes"); 
                                 }
                             });
+                        var sharp =  app.get('sharp');
+                        sharp(imagenes[i].data).resize(50, 50)
+                        .crop(sharp.gravity.centre)
+                        .toFile('./public/thumbs/'+ id+"_"+(i+1)+'.png',function (err, buf) {
+                            if (err) return next(err)
+                          })
                         }
                         res.send("OK");
-                    } else{
-                        var imagen = req.files.fotos;
-                        imagen.mv('public/inmuebles/'+ id+"_1"+'.png',function(err) {
-                            if (err) {
-                                res.send("Error al subir las imagenes"); 
-                            }
-                        });
-                        res.send("OK");
-                    }
                 }
 
             }

@@ -8,6 +8,8 @@ app.use(expressSession({
     saveUninitialized: true
 }));
 
+var sharp = require('sharp');
+app.set('sharp',sharp);
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');
 app.use(fileUpload());
