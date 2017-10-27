@@ -14,9 +14,8 @@
             <p>Habitaciones:{{ inmueble.habitaciones }}</p>
             <p>Superficie:{{ inmueble.superficie }}</p>
             <p>Ubicacion:{{ inmueble.ubicacion }}</p>
-
-            <a class="btn btn-primary pull-right" 
-               href="/inmueble/comprar/{{ inmueble._id.toString() }}">{{ inmueble.precio }} €</a>
+            <p>Fecha publicación: {{inmueble.fechaPublicacion.getDate()}}/{{inmueble.fechaPublicacion.getMonth()+1}}/{{inmueble.fechaPublicacion.getFullYear()}} {{inmueble.fechaPublicacion.getHours()}}:{{inmueble.fechaPublicacion.getMinutes()}}</p>
+            <a class="btn btn-primary pull-right">{{ inmueble.precio }} €</a>
             <!-- Cambiar el precio por "reproducir" si ya está comprada -->
         </div>
     </div>

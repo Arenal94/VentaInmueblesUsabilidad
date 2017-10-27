@@ -1,10 +1,20 @@
-ul{
+.tipsListaInmuebles{
     text-align: center;
 }
 
-li{
+.tipsListaInmuebles  li{
     list-style: none;
     display: inline;
+}
+.tipsMisInmuebles li{
+    list-style: none;
+    display: inline;
+}
+.cardListaInmuebles{
+    text-decoration: none;
+}
+.cardListaInmuebles:hover{
+    text-decoration: none;
 }
 
 .border > img{
@@ -20,7 +30,7 @@ li{
 
 .border:hover{
     position: relative;
-    box-shadow: 1px 4px 6px black;
+    box-shadow: 1px 4px 6px rgba(0, 0, 0, .5);
 }
 
 .heart {

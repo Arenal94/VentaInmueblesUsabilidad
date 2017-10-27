@@ -13,23 +13,6 @@ module.exports = function(app, swig, gestorBD) {
 		if ( req.query.pg == null){ // Puede no venir el param
 			pg = 1;
 		}
-    app.get('/inmueble/:id', function(req, res) {
-            var criterio = {
-                "_id" : gestorBD.mongo.ObjectID(req.params.id)
-            };
-    
-            gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
-                if (inmuebles == null) {
-                    res.send(respuesta);
-                } else {
-                    var respuesta = swig.renderFile('views/binmueble.html', {
-                        inmueble : inmuebles[0]
-                    });
-                    res.send(respuesta);
-                }
-        });
-    })
-
 		gestorBD.obtenerInmueblesPg(criterio, pg , function(inmuebles, total ) {
 			if (inmuebles == null) {
 				res.send("Error al listar ");
@@ -56,14 +39,43 @@ module.exports = function(app, swig, gestorBD) {
 			}
 		});
 
-	});
-        app.get('/inmuebles/agregar', function(req, res) {
+    }),
+    app.get('/inmueble/:id', function(req, res) {
+        var criterio = {
+            "_id" : gestorBD.mongo.ObjectID(req.params.id)
+        };
+
+        gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+            if (inmuebles == null) {
+                res.send(respuesta);
+            } else {
+                var respuesta = swig.renderFile('views/binmueble.html', {
+                    inmueble : inmuebles[0]
+                });
+                res.send(respuesta);
+            }
+    });
+    }),
+    app.get('/inmueble/eliminar/:id', function(req, res) {
+        var criterio = {
+            "_id" : gestorBD.mongo.ObjectID(req.params.id)
+        };
+
+        gestorBD.eliminarInmueble(criterio, function(inmuebles) {
+            if (inmuebles == null) {
+                res.send(respuesta);
+            } else {
+                res.send("Eliminado");
+            }
+        });
+    }),
+    app.get('/inmuebles/agregar', function(req, res) {
             var respuesta = swig.renderFile('views/bagregar.html', {
     
             });
             res.send(respuesta);
         })
-        app.get("/misinmuebles", function(req, res) {
+    app.get("/misinmuebles", function(req, res) {
             var criterio = {
                 vendedor : req.session.usuario
             };
@@ -79,7 +91,7 @@ module.exports = function(app, swig, gestorBD) {
                 }
             });
         });
-        app.post("/inmueble",function(req, res) {
+    app.post("/inmueble",function(req, res) {
             var inmueble = {
                                 nombre : req.body.nombre,
                                 tipoInmueble : req.body.tipoInmueble,
@@ -92,6 +104,7 @@ module.exports = function(app, swig, gestorBD) {
                                 ubicacion : req.body.ubicacion,
                                 lat: req.body.lat,
                                 lng: req.body.lng,
+                                fechaPublicacion: new Date()
                             }
                             // Conectarse
             gestorBD.insertarInmueble(inmueble,function(id) {
