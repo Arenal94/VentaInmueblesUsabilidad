@@ -64,6 +64,7 @@ routerUsuarioSession.use(function(req, res, next) {
 
 //Aplicar routerUsuarioSession
 app.use("/inmuebles/agregar",routerUsuarioSession);
+app.use("/usuario/perfil",routerUsuarioSession);
 app.use("/misinmuebles",routerUsuarioSession);
 app.use("/misfavoritos",routerUsuarioSession);
 app.use("/inmuebles/cambiarFavorito",routerUsuarioSession);
