@@ -75,6 +75,7 @@
             <p>{{ inmueble.descripcion || "No hay una descripcion disponible"}}</p>
         </div>
         <p>Email de contacto: {{ inmueble.vendedor || "No especificado"}}</p>
+        <a href="/contacto?vendedor={{inmueble.vendedor}}" class="btn btn-primary btn-block" role="button">Contacta con el vendedor</a>
     </div>
     <div class="media col-xs-10">
         <div class="media-body">

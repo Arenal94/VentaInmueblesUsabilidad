@@ -7,7 +7,20 @@ app.use(expressSession({
     resave: true,
     saveUninitialized: true
 }));
-
+var mailer = require('express-mailer');
+mailer.extend(app, {
+	from: 'emailtestadrianarenal@gmail.com',
+	host: 'smtp.gmail.com', // hostname 
+	secureConnection: true, // use SSL 
+	port: 465, // port for secure SMTP 
+	transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
+	auth: {
+	  user: 'emailtestadrianarenal@gmail.com',
+	  pass: 'emailtest'
+	}
+  });
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
 app.use(function(req,res,next){
     var _send = res.send;
     var sent = false;
@@ -19,8 +32,8 @@ app.use(function(req,res,next){
     next();
 });
 
-//var sharp = require('sharp');
-//app.set('sharp',sharp);
+var sharp = require('sharp');
+app.set('sharp',sharp);
 
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');
@@ -49,75 +62,8 @@ routerUsuarioSession.use(function(req, res, next) {
 //Aplicar routerUsuarioSession
 app.use("/inmuebles/agregar",routerUsuarioSession);
 app.use("/misinmuebles",routerUsuarioSession);
-app.use("/cancion/comprar",routerUsuarioSession);
-app.use("/compras",routerUsuarioSession);
 app.use("/misfavoritos",routerUsuarioSession);
 app.use("/inmuebles/cambiarFavorito",routerUsuarioSession);
-
-
-//routerUsuarioAutor
-var routerUsuarioAutor = express.Router(); 
-routerUsuarioAutor.use(function(req, res, next) {
-	 console.log("routerUsuarioAutor");
-	 var path = require('path');
-	 var id = path.basename(req.originalUrl);
-	 // Cuidado porque req.params no funciona
-	 // en el router si los params van en la URL.
-	 
-	 gestorBD.obtenerCanciones( 
-			 { _id : mongo.ObjectID(id) }, function (canciones) {
-		 console.log(canciones[0]); 
-		 if(canciones[0].autor == req.session.usuario ){
-			 next();
-		 } else {
-		     res.redirect("/tienda");
-		 }
-	 })
-
-});
-
-//Aplicar routerUsuarioAutor
-app.use("/cancion/modificar",routerUsuarioAutor);
-app.use("/cancion/eliminar",routerUsuarioAutor);
-//routerAudios
-var routerAudios = express.Router(); 
-routerAudios.use(function(req, res, next) {
-	 console.log("routerAudios");
-	 var path = require('path');
-	 var idCancion = path.basename(req.originalUrl, '.mp3');
-	
-	 gestorBD.obtenerCanciones( 
-			 { _id : mongo.ObjectID(idCancion) }, function (canciones) {
-				 
-		 if( canciones[0].autor == req.session.usuario ){
-			 next();
-		 } else {
-			 gestorBD.obtenerUsuarios(
-                     { email : req.session.usuario }, function (usuarios) {
-                 
-                 if ( usuarios[0].compras != null  ){
-                     for(var i=0; i < usuarios[0].compras.length; i++ ){
-                         if( usuarios[0].compras[i] == idCancion ){
-                             next();
-                             return;
-                         }
-                     }
-                     res.redirect("/tienda");
-
-                 } else {
-                     res.redirect("/tienda");
-                 }
-             });
-
-		 }
-	 })
-
-});
-
-//Aplicar routerAudios
-app.use("/audios/",routerAudios);
-
-
 
 
 app.use(express.static('public'));
@@ -130,7 +76,6 @@ app.set('crypto',crypto);
 
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app, swig, gestorBD);  // (app, param1, param2, etc.)
-require("./routes/rcanciones.js")(app, swig, gestorBD);  // (app, param1, param2, etc.)
 require("./routes/rinmuebles.js")(app, swig, gestorBD);  // (app, param1, param2, etc.)
 app.get('/', function (req, res) {
 	res.redirect('/inmuebles');
