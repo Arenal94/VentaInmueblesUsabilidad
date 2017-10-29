@@ -67,7 +67,7 @@
 </script>
 <div class="row" style="margin-top: 20px;" >
     <div class="media col-xs-4">
-        <h3>Valoración de los usuarios: <span class="label label-warning">{{valoracionGlobal}}</span></h3>
+        <h3>Valoración de los usuarios: <span class="label label-warning">{{valoracionGlobal.toFixed(1)}}</span></h3>
         <form action="/inmuebles/valorar/{{inmueble._id.toString()}}" id="valorar" method="post">
             <div class="stars">
                 <input type="radio" name="star" class="star-1" id="star-1" />
@@ -122,36 +122,6 @@
             title: 'Ubicación de la vivienda'
         });
     }
-    $(".heart.fa").click(function() {
-        $(this).toggleClass("fa-heart fa-heart-o");
-    });
-</script>
-<script>
-    $('#star-5').on('click', function() {
-        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("5");
-        $('#valorar').append(input);
-        $('#valorar').submit();
-    });
-    $('#star-4').on('click', function() {
-        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("4");
-        $('#valorar').append(input);
-        $('#valorar').submit();
-    });
-    $('#star-3').on('click', function() {
-        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("3");
-        $('#valorar').append(input);
-        $('#valorar').submit();
-    });
-    $('#star-2').on('click', function() {
-        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("2");
-        $('#valorar').append(input);
-        $('#valorar').submit();
-    });
-    $('#star-1').on('click', function() {
-        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("1");
-        $('#valorar').append(input);
-        $('#valorar').submit();
-    });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
 

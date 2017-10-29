@@ -259,7 +259,7 @@ module.exports = function(app, swig, gestorBD) {
                             inmueble : inmuebles[0],
                             precio: parseInt(inmuebles[0].precio).toLocaleString("es-ES").replace(/,/g, '.'),
                             usuario: req.session.usuario,
-                            valoracionGlobal: inmuebles[0].valoracion.reduce(function(a, b) { return parseInt(a) + parseInt(b); })/ parseInt(inmuebles[0].valoracion.length == 1 ? 1 : inmuebles[0].valoracion.length - 1)
+                            valoracionGlobal: Math.round(inmuebles[0].valoracion.reduce(function(a, b) { return parseInt(a) + parseInt(b); })/ parseInt(inmuebles[0].valoracion.length == 1 ? 1 : inmuebles[0].valoracion.length - 1) * 10 ) / 10
                         });
                         return res.send(respuesta);
                     }

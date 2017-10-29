@@ -16,9 +16,6 @@
         {% block scripts %}  {% endblock %}
     </head>
     <body>
-
-
-        <!-- Barra de Navegación superior -->
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -33,10 +30,6 @@
                     <ul class="nav navbar-nav">
                         <li id="mTienda"><a href="/inmuebles">¡Encuentra tu piso!</a></li>
                     </ul>
-                    <!--<ul class="nav navbar-nav navbar-right">
-<li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
-<li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
-</ul>-->            
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown ">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" > Configuración
@@ -64,14 +57,10 @@
                 </div>
             </div>
         </nav>
-
-
-
         <div class="container">
             <script>
                 var mensaje = getUrlParameter('mensaje');
                 var tipoMensaje = getUrlParameter('tipoMensaje');
-
                 if ( mensaje != ""){
                     if (tipoMensaje == "" ){
                         tipoMensaje = 'alert-info';
@@ -79,7 +68,6 @@
                     $( ".container" )
                         .append("<div class='alert "+tipoMensaje+"'>"+mensaje+" </div>");
                 }
-
                 function getUrlParameter(name) {
                     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
                     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -93,15 +81,9 @@
                     $(this).parent().addClass("active");
                 });
             </script>
-
-            <!-- Contenido -->
             {% block contenido_principal %}
-            <!-- Posible contenido por defecto -->
             {% endblock %}
-
-
         </div>
-
-
+        <script src="/js/inmuebleconf.js"></script>
     </body>
 </html>
