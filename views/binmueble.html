@@ -12,10 +12,15 @@
         color:white;
         font-size: 14px;
     }
+    body{
+        background-image: url("/img/bg-light.jpg");
+        background-size:cover;
+    }
+</style>
 </style>
 <div class="row">
     <div class="media col-xs-10">
-        <div class="media-left media-middle col-xs-8">
+        <div class="media-left media-middle col-xs-6">
             <div class="demo">
                 {% for x in inmueble.imagenes %}
                 {% if loop.first %}<ul id="lightSlider">{% endif %}
@@ -35,24 +40,22 @@
                     $('.love').removeClass('active');
                 </script>
                 {% if inmueble.favourite != '' %}
-                    {% if inmueble.favourite.indexOf(usuario) !== -1 %}
-                    <script>
-                        $('.love').addClass('active');
-                    </script>
-                    {% endif %}
+                {% if inmueble.favourite.indexOf(usuario) !== -1 %}
+                <script>
+                    $('.love').addClass('active');
+                </script>
+                {% endif %}
                 {% endif %}
             </h2>
-            <p>Baños:{{ inmueble.banhos }}</p>
-            <p>Habitaciones:{{ inmueble.habitaciones }}</p>
-            <p>Superficie:{{ inmueble.superficie }} m<sup>2</sup></p>
-            <p>Ubicacion:{{ inmueble.ubicacion }}</p>
+            <p>Baños: {{ inmueble.banhos }}</p>
+            <p>Habitaciones: {{ inmueble.habitaciones }}</p>
+            <p>Superficie: {{ inmueble.superficie }} m<sup>2</sup></p>
+            <p>Ubicacion: {{ inmueble.ubicacion }}</p>
             <p>Fecha publicación: {{inmueble.fechaPublicacion.getDate()}}/{{inmueble.fechaPublicacion.getMonth()+1}}/{{inmueble.fechaPublicacion.getFullYear()}} {{inmueble.fechaPublicacion.getHours()}}:{{inmueble.fechaPublicacion.getMinutes()}}</p>
-            <a class="btn btn-primary pull-right">{{ inmueble.precio }} €</a>
-            <!-- Cambiar el precio por "reproducir" si ya está comprada -->
+            <h2><span class="label label-success">{{ precio }} €</span></h2>
         </div>
     </div>
 </div>
-
 <script>
     $('#lightSlider').lightSlider({
         gallery: true,
@@ -62,9 +65,25 @@
         thumbItem:9
     });
 </script>
-<!-- -->
 <div class="row" style="margin-top: 20px;" >
-    <div class="media col-xs-10">
+    <div class="media col-xs-4">
+        <h3>Valoración de los usuarios: <span class="label label-warning">{{valoracionGlobal}}</span></h3>
+        <form action="/inmuebles/valorar/{{inmueble._id.toString()}}" id="valorar" method="post">
+            <div class="stars">
+                <input type="radio" name="star" class="star-1" id="star-1" />
+                <label class="star-1" for="star-1">1</label>
+                <input type="radio" name="star" class="star-2" id="star-2" />
+                <label class="star-2" for="star-2">2</label>
+                <input type="radio" name="star" class="star-3" id="star-3" />
+                <label class="star-3" for="star-3">3</label>
+                <input type="radio" name="star" class="star-4" id="star-4" />
+                <label class="star-4" for="star-4">4</label>
+                <input type="radio" name="star" class="star-5" id="star-5" />
+                <label class="star-5" for="star-5">5</label>
+                <span></span>
+            </div>
+        </form>
+        <br>
         <div class="media-left media-middle">
             <a href="#">
                 <img class="media-object" src="/img/user.png" >
@@ -75,14 +94,14 @@
             <p>{{ inmueble.descripcion || "No hay una descripcion disponible"}}</p>
         </div>
         <p>Email de contacto: {{ inmueble.vendedor || "No especificado"}}</p>
+        <h4 class="media-heading">Localización</h4>
+        <p>{{ inmueble.ubicacion }}</p>
+        <p id="lat" style="display:none">{{ inmueble.lat }}</p>
+        <p id="lng" style="display:none">{{ inmueble.lng }}</p>
     </div>
-    <div class="media col-xs-10">
+    <div class="media col-xs-4">
         <div class="media-body">
-            <h4 class="media-heading">Localizacion</h4>
-            <p>{{ inmueble.ubicacion }}</p>
-            <p id="lat" style="display:none">{{ inmueble.lat }}</p>
-            <p id="lng" style="display:none">{{ inmueble.lng }}</p>
-            <div id="googleMap" style="width:100%;height:300px;"></div>
+            <div id="googleMap" style="width:100%;height:200px;"></div>
         </div>
     </div>
 </div>
@@ -105,7 +124,33 @@
     $(".heart.fa").click(function() {
         $(this).toggleClass("fa-heart fa-heart-o");
     });
-
+</script>
+<script>
+    $('#star-5').on('click', function() {
+        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("5");
+        $('#valorar').append(input);
+        $('#valorar').submit();
+    });
+    $('#star-4').on('click', function() {
+        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("4");
+        $('#valorar').append(input);
+        $('#valorar').submit();
+    });
+    $('#star-3').on('click', function() {
+        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("3");
+        $('#valorar').append(input);
+        $('#valorar').submit();
+    });
+    $('#star-2').on('click', function() {
+        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("2");
+        $('#valorar').append(input);
+        $('#valorar').submit();
+    });
+    $('#star-1').on('click', function() {
+        var input = $("<input>").attr("type", "hidden").attr("name", "starr").val("1");
+        $('#valorar').append(input);
+        $('#valorar').submit();
+    });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
 

@@ -117,7 +117,9 @@ module.exports = function(app, swig, gestorBD) {
             } else {
                 var respuesta = swig.renderFile('views/binmueble.html', {
                     inmueble : inmuebles[0],
-                    usuario: req.session.usuario
+                    precio: parseInt(inmuebles[0].precio).toLocaleString("es-ES").replace(/,/g, '.'),
+                    usuario: req.session.usuario,
+                    valoracionGlobal: inmuebles[0].valoracion.reduce(function(a, b) { return parseInt(a) + parseInt(b); })/ parseInt(inmuebles[0].valoracion.length == 1 ? 1 : inmuebles[0].valoracion.length - 1)
                 });
                 return res.send(respuesta);
             }
@@ -236,6 +238,35 @@ module.exports = function(app, swig, gestorBD) {
             }
         });
     });
+    app.post('/inmuebles/valorar/:id', function(req, res) {
+        var id = req.params.id;
+        var criterio = {
+            "_id" : gestorBD.mongo.ObjectID(id)
+        };
+        gestorBD.pisoValorar(criterio, gestorBD.mongo.ObjectID(id), req.body.starr, function(result) {
+            var respuesta = null;
+            if (result == null) {
+                return res.send("Error al modificar ");
+            } else {
+                var criterio = {
+                    _id : gestorBD.mongo.ObjectID(id)
+                };
+                gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+                    if (inmuebles == null) {
+                        res.send("Error al listar ");
+                    } else {
+                        var respuesta = swig.renderFile('views/binmueble.html', {
+                            inmueble : inmuebles[0],
+                            precio: parseInt(inmuebles[0].precio).toLocaleString("es-ES").replace(/,/g, '.'),
+                            usuario: req.session.usuario,
+                            valoracionGlobal: inmuebles[0].valoracion.reduce(function(a, b) { return parseInt(a) + parseInt(b); })/ parseInt(inmuebles[0].valoracion.length == 1 ? 1 : inmuebles[0].valoracion.length - 1)
+                        });
+                        return res.send(respuesta);
+                    }
+                });
+            }
+        });
+    });
     app.get("/misinmuebles", function(req, res) {
         var criterio = {
             vendedor : req.session.usuario
@@ -294,7 +325,8 @@ module.exports = function(app, swig, gestorBD) {
             lat: req.body.lat,
             lng: req.body.lng,
             fechaPublicacion: new Date(),
-            imagenes: imagenes
+            imagenes: imagenes,
+            valoracion: [0]
         }
         gestorBD.insertarInmueble(inmueble,function(id) {
             if (id == null) {

@@ -98,8 +98,8 @@ module.exports = {
                         } else {
                             if(result > 0){
                                 collection.update(criterio, 
-                                    {$pull: { "favourite" : pisoId }}, 
-                                    function(err, result) {
+                                                  {$pull: { "favourite" : pisoId }}, 
+                                                  function(err, result) {
                                     if (err) {
                                         funcionCallback(null);
                                     } else {
@@ -109,8 +109,8 @@ module.exports = {
                             }
                             else{
                                 collection.update(criterio, 
-                                    {$push: { "favourite" : pisoId }}, 
-                                    function(err, result) {
+                                                  {$push: { "favourite" : pisoId }}, 
+                                                  function(err, result) {
                                     if (err) {
                                         funcionCallback(null);
                                     } else {
@@ -122,6 +122,42 @@ module.exports = {
                         }
                         db.close();
                     });
+            }
+        });
+    },
+    pisoValorar: function(criterio, id, valoracion, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('inmuebles');
+                collection.update(criterio, 
+                    {$push: { "valoracion" : valoracion }}, 
+                    function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }   
+                    db.close();
+                });
+            }
+        });
+    },
+    getValoracion: function(criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('inmuebles');
+                collection.find(criterio).toArray(function(err, canciones) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(canciones);
+                    }
+                    db.close();
+                });
             }
         });
     },
