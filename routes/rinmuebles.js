@@ -134,7 +134,19 @@ module.exports = function(app, swig, gestorBD) {
             if (inmuebles == null) {
                 res.send(respuesta);
             } else {
-                res.send("Eliminado");
+                var criterio = {
+                    vendedor : req.session.usuario
+                };
+                gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+                    if (inmuebles == null) {
+                        res.send("Error al listar ");
+                    } else {
+                        var respuesta = swig.renderFile('views/bmisinmuebles.html', {
+                            inmuebles : inmuebles
+                        });
+                        res.send(respuesta);
+                    }
+                });
             }
         });
     }),
@@ -175,6 +187,9 @@ module.exports = function(app, swig, gestorBD) {
             lng: req.body.lng,
             fechaModificacion: new Date()
         }
+        if(req.files.fotos != null){
+            inmueble.imagenes = req.files.fotos;
+        }
 
         gestorBD.modificarInmueble(criterio, inmueble, function(result) {
             if (result == null) {
@@ -184,7 +199,19 @@ module.exports = function(app, swig, gestorBD) {
                     if (result == null) {
                         res.send("Error en la modificación");
                     } else {
-                        res.redirect("/publicaciones");
+                        var criterio = {
+                            vendedor : req.session.usuario
+                        };
+                        gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+                            if (inmuebles == null) {
+                                res.send("Error al listar ");
+                            } else {
+                                var respuesta = swig.renderFile('views/bmisinmuebles.html', {
+                                    inmuebles : inmuebles
+                                });
+                                res.send(respuesta);
+                            }
+                        });
                     }
                 });
 
@@ -193,17 +220,36 @@ module.exports = function(app, swig, gestorBD) {
 
     })
     function paso1ModificarFotos(files, id, callback) {
+        var imagenes = []
         if (files.fotos != null) {
-            var imagen = files.fotos;
-            imagen.mv('public/inmuebles/' + id + '.png', function(err) {
-                if (err) {
-                    callback(null); // ERROR
-                } else {
-                    callback(true); // FIN
+            if(files.fotos.length==undefined){
+                imagenes.push(files.fotos);
+            }
+            else{
+                for (i = 0; i < files.fotos.length; i++) { 
+                    imagenes.push(files.fotos[i]);
                 }
-            });
-        } else {
-            callback(true); // FIN
+            }
+
+        }
+        if (imagenes != []) {
+            for (i = 0; i < imagenes.length; i++) { 
+                var imagen = imagenes[i];
+                imagen.mv('public/inmuebles/'+ id+"_"+(i+1)+'.png',function(err) {
+                    if (err) {
+                        callback(null); 
+                    }
+                });
+                var sharp =  app.get('sharp');
+                sharp(imagenes[i].data).resize(50, 50)
+                    .crop(sharp.gravity.centre)
+                    .toFile('./public/thumbs/'+ id+"_"+(i+1)+'.png',function (err, buf) {
+                    if (err){
+                        callback(null); 
+                    } 
+                })
+            }
+            callback(true); 
         }
     }
     app.get('/inmuebles/agregar', function(req, res) {
@@ -347,7 +393,19 @@ module.exports = function(app, swig, gestorBD) {
                             if (err) return next(err)
                         })
                     }
-                    res.send("OK");
+                    var criterio = {
+                        vendedor : req.session.usuario
+                    };
+                    gestorBD.obtenerInmuebles(criterio, function(inmuebles) {
+                        if (inmuebles == null) {
+                            res.send("Error al listar ");
+                        } else {
+                            var respuesta = swig.renderFile('views/bmisinmuebles.html', {
+                                inmuebles : inmuebles
+                            });
+                            res.send(respuesta);
+                        }
+                    });
                 }
 
             }

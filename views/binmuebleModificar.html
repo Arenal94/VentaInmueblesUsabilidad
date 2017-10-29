@@ -21,16 +21,16 @@
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="tipoInmueble">tipo de Inmueble:</label>
-        <div class="col-sm-10">
+        <div class="col-sm-10 selDiv" >
             <select class="form-control" name="tipoInmueble" required="true" >
                 <option value="Piso">Piso</option>
                 <option value="Apartamento">Apartamento</option>
                 <option value="Casa">Casa</option>
                 <option value="Bajo">Bajo</option>
                 <option value="Local">Local</option>
-                <script> document.getElementById("{{ inmueble.tipoInmueble }}").selected = "true"; </script>
             </select>
         </div>
+        <script>$('.selDiv option[value="{{ inmueble.tipoInmueble }}"]').prop('selected', true);</script>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="banhos">Baños:</label>
@@ -70,12 +70,29 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="fotos">Adjuntar fotos:</label>
         <div class="col-sm-10">       
-            <img src="/inmuebles/{{ inmueble._id.toString() }}.png" alt="logo" />   
+            <div class="demo">
+                {% for x in inmueble.imagenes %}
+                {% if loop.first %}<ul id="lightSlider">{% endif %}
+                <li data-thumb="/thumbs/{{ inmueble._id.toString() }}_{{ loop.index }}.png"> <img src="/inmuebles/{{ inmueble._id.toString() }}_{{ loop.index }}.png" /></li>
+                {% if loop.last %}</ul>{% endif %}
+                {% endfor %}
+            </div>
             <input type="file" class="custom-file-input" name="fotos" 
                    accept=".png" multiple/>
         </div>
     </div>
-
+    <script>
+        function slider(){
+            $('#lightSlider').lightSlider({
+                gallery: true,
+                item: 1,
+                loop: true,
+                slideMargin: 0,
+                thumbItem:9
+            });
+        }
+        window.onload = slider;
+    </script>
     <div class="form-group">
         <label class="control-label col-sm-2" for="fotos">Seleccionar ubicacion en el mapa:</label>
         <div class="col-sm-4">          
