@@ -141,7 +141,7 @@ module.exports = function(app, swig, gestorBD) {
                     if (inmuebles == null) {
                         res.send("Error al listar ");
                     } else {
-                        var respuesta = swig.renderFile('views/bmisinmuebles.html?mensaje=Inmueble eliminado', {
+                        var respuesta = swig.renderFile('views/bmisinmuebles.html', {
                             inmuebles : inmuebles
                         });
                         res.send(respuesta);
@@ -206,7 +206,7 @@ module.exports = function(app, swig, gestorBD) {
                             if (inmuebles == null) {
                                 res.send("Error al listar ");
                             } else {
-                                var respuesta = swig.renderFile('views/bmisinmuebles.html?mensaje=Inmueble modificado', {
+                                var respuesta = swig.renderFile('views/bmisinmuebles.html', {
                                     inmuebles : inmuebles
                                 });
                                 res.send(respuesta);
@@ -301,7 +301,7 @@ module.exports = function(app, swig, gestorBD) {
                     if (inmuebles == null) {
                         res.send("Error al listar ");
                     } else {
-                        var respuesta = swig.renderFile('views/binmueble.html?mensaje=Nuevo valoracion registrada', {
+                        var respuesta = swig.renderFile('views/binmueble.html', {
                             inmueble : inmuebles[0],
                             precio: parseInt(inmuebles[0].precio).toLocaleString("es-ES").replace(/,/g, '.'),
                             usuario: req.session.usuario,
@@ -400,7 +400,7 @@ module.exports = function(app, swig, gestorBD) {
                         if (inmuebles == null) {
                             res.send("Error al listar ");
                         } else {
-                            var respuesta = swig.renderFile('views/bmisinmuebles.html?mensaje=Nuevo inmueble añadido', {
+                            var respuesta = swig.renderFile('views/bmisinmuebles.html', {
                                 inmuebles : inmuebles
                             });
                             res.send(respuesta);
