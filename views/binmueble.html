@@ -3,19 +3,45 @@
 {% block titulo %} Detalles de {{ inmueble.nombre }}  {% endblock %} 
 
 {% block contenido_principal %}
+<style>
+    a{
+        color:red;
+        font-size: 14px;
+    }
+    a:hover{
+        color:white;
+        font-size: 14px;
+    }
+</style>
 <div class="row">
     <div class="media col-xs-10">
         <div class="media-left media-middle col-xs-8">
-                <div class="demo">
-                        {% for x in inmueble.imagenes %}
-                        {% if loop.first %}<ul id="lightSlider">{% endif %}
-                                <li data-thumb="/thumbs/{{ inmueble._id.toString() }}_{{ loop.index }}.png"> <img src="/inmuebles/{{ inmueble._id.toString() }}_{{ loop.index }}.png" /></li>
-                        {% if loop.last %}</ul>{% endif %}
-                        {% endfor %}
-                </div>
+            <div class="demo">
+                {% for x in inmueble.imagenes %}
+                {% if loop.first %}<ul id="lightSlider">{% endif %}
+                <li data-thumb="/thumbs/{{ inmueble._id.toString() }}_{{ loop.index }}.png"> <img src="/inmuebles/{{ inmueble._id.toString() }}_{{ loop.index }}.png" /></li>
+                {% if loop.last %}</ul>{% endif %}
+                {% endfor %}
+            </div>
         </div>
         <div class="media-body">
-            <h2>{{ inmueble.nombre }} <small> {{ inmueble.tipoInmueble }}</small> <a href="#"><i class="heart fa fa-heart-o"></i></a></h2>
+            <h2>{{ inmueble.nombre }}<small> {{ inmueble.tipoInmueble }}</small>
+                <br>
+                <div class="love">
+                    <div class="heart"><div></div></div>
+                    <a class="text" href="/inmuebles/cambiarFavorito/?id={{ inmueble._id.toString() }}">Favorito</a>
+                </div>
+                <script>
+                    $('.love').removeClass('active');
+                </script>
+                {% if inmueble.favourite != '' %}
+                    {% if inmueble.favourite.indexOf(usuario) !== -1 %}
+                    <script>
+                        $('.love').addClass('active');
+                    </script>
+                    {% endif %}
+                {% endif %}
+            </h2>
             <p>Baños:{{ inmueble.banhos }}</p>
             <p>Habitaciones:{{ inmueble.habitaciones }}</p>
             <p>Superficie:{{ inmueble.superficie }} m<sup>2</sup></p>
@@ -29,12 +55,12 @@
 
 <script>
     $('#lightSlider').lightSlider({
-    gallery: true,
-    item: 1,
-    loop: true,
-    slideMargin: 0,
-    thumbItem:9
-});
+        gallery: true,
+        item: 1,
+        loop: true,
+        slideMargin: 0,
+        thumbItem:9
+    });
 </script>
 <!-- -->
 <div class="row" style="margin-top: 20px;" >

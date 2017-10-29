@@ -1,49 +1,61 @@
 {% extends "base.html" %} {% block titulo %} Mis Inmuebles {% endblock %} 
 
 {% block contenido_principal %}
-<h2>Mis Inmuebles</h2>
-
-<!-- Agregar Canción -->
-<div class="row text-right">
-	<a href="/inmuebles/agregar" class="btn btn-info" role="button">Agregar inmueble</a>
-</div>
-
-<div class="table-responsive">
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Tipo Inmueble</th>
-				<th>Características</th>
-				<th>Última modificación</th>
-				<th class="col-md-1"></th>
-			</tr>
-		</thead>
-		<tbody>
-		{% for inmueble in inmuebles %}
-			<tr>
-				<td>{{ inmueble.nombre }}</td>
-				<td>{{ inmueble.tipoInmueble }}</td>
-				<td> <ul class="tipsMisInmuebles">
-					<li><img src="/img/surface.png"/> {{ inmueble.superficie }} m<sup>2</sup></li>
-					<li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
-					<li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
-				</ul>
-				</td>
-				<td>{% if inmueble.fechaModificacion %}
-					{{inmueble.fechaModificacion.getDate()}}/{{inmueble.fechaModificacion.getMonth()+1}}/{{inmueble.fechaModificacion.getFullYear()}} {{inmueble.fechaModificacion.getHours()}}:{{inmueble.fechaModificacion.getMinutes()}}
-					{% else %} 
-					No se ha modificado
-					{% endif %}
-				</td>
-				<td><a href="/inmueble/modificar/{{ inmueble._id.toString() }}">Modificar</a> <br>
-					<a href="/inmueble/eliminar/{{ inmueble._id.toString() }}">Eliminar</a> <br>
-					<a href="/inmueble/{{ inmueble._id.toString() }}">Ver en Detalle</a> <br>
-			    </td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+<style>
+    body{
+        background-image: url("/img/bg-left.jpg");
+        background-size:cover;
+    }
+    table{
+        background: white;
+    }
+    .table td{
+        text-align: center;   
+    }
+    
+    .table th{
+        text-align: center;   
+    }
+</style>
+<h2 id="misInmueblesTitle">Mis Inmuebles</h2>
+<div class="table-responsive col-sm-10 col-sm-offset-1">
+    <a href="/inmuebles/agregar" class="btn btn-primary btn-block" role="button">Agregar inmueble</a>
+    <br>
+    <table class="table table-hover table-bordered">
+        <thead> 
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo Inmueble</th>
+                <th>Características</th>
+                <th>Última modificación</th>
+                <th class="col-md-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inmueble in inmuebles %}
+            <tr>
+                <td>{{ inmueble.nombre }}</td>
+                <td>{{ inmueble.tipoInmueble }}</td>
+                <td> <ul class="tipsMisInmuebles">
+                    <li><img src="/img/surface.png"/> {{ inmueble.superficie }} m<sup>2</sup></li>
+                    <li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
+                    <li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
+                    </ul>
+                </td>
+                <td>{% if inmueble.fechaModificacion %}
+                    {{inmueble.fechaModificacion.getDate()}}/{{inmueble.fechaModificacion.getMonth()+1}}/{{inmueble.fechaModificacion.getFullYear()}} {{inmueble.fechaModificacion.getHours()}}:{{inmueble.fechaModificacion.getMinutes()}}
+                    {% else %} 
+                    No se ha modificado
+                    {% endif %}
+                </td>
+                <td><a href="/inmueble/modificar/{{ inmueble._id.toString() }}">Modificar</a> <br>
+                    <a href="/inmueble/eliminar/{{ inmueble._id.toString() }}">Eliminar</a> <br>
+                    <a href="/inmueble/{{ inmueble._id.toString() }}">Ver en Detalle</a> <br>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 

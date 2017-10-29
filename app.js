@@ -8,8 +8,20 @@ app.use(expressSession({
     saveUninitialized: true
 }));
 
-var sharp = require('sharp');
-app.set('sharp',sharp);
+app.use(function(req,res,next){
+    var _send = res.send;
+    var sent = false;
+    res.send = function(data){
+        if(sent) return;
+        _send.bind(res)(data);
+        sent = true;
+    };
+    next();
+});
+
+//var sharp = require('sharp');
+//app.set('sharp',sharp);
+
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');
 app.use(fileUpload());
@@ -39,6 +51,9 @@ app.use("/inmuebles/agregar",routerUsuarioSession);
 app.use("/misinmuebles",routerUsuarioSession);
 app.use("/cancion/comprar",routerUsuarioSession);
 app.use("/compras",routerUsuarioSession);
+app.use("/misfavoritos",routerUsuarioSession);
+app.use("/inmuebles/cambiarFavorito",routerUsuarioSession);
+
 
 //routerUsuarioAutor
 var routerUsuarioAutor = express.Router(); 
@@ -108,8 +123,8 @@ app.use("/audios/",routerAudios);
 app.use(express.static('public'));
 
 app.set('port', 8081);
-app.set('db','mongodb://localhost:27017/uomusic');
-//app.set('db','mongodb://miw:miw@ds233895.mlab.com:33895/dpiu');
+//app.set('db','mongodb://localhost:27017/uomusic');
+app.set('db','mongodb://miw:miw@ds233895.mlab.com:33895/dpiu');
 app.set('clave','abcdefg');
 app.set('crypto',crypto);
 
@@ -118,7 +133,7 @@ require("./routes/rusuarios.js")(app, swig, gestorBD);  // (app, param1, param2,
 require("./routes/rcanciones.js")(app, swig, gestorBD);  // (app, param1, param2, etc.)
 require("./routes/rinmuebles.js")(app, swig, gestorBD);  // (app, param1, param2, etc.)
 app.get('/', function (req, res) {
-	res.redirect('/tienda');
+	res.redirect('/inmuebles');
 })
 app.use( function (err, req, res, next ) {
     console.log("Error producido: " + err); //we log the error in our db

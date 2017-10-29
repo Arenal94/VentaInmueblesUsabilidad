@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block titulo %} Mis Inmuebles {% endblock %} 
+
+{% block contenido_principal %}
+<style>
+    body{
+        background-image: url("/img/bg-left.jpg");
+        background-size:cover;
+    }
+    table{
+        background: white;
+    }
+    .table td{
+        text-align: center;   
+    }
+    
+    .table th{
+        text-align: center;   
+    }
+</style>
+<h2 id="misFavoritosTitle">Mis inmuebles favoritos</h2>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Tipo Inmueble</th>
+				<th>Características</th>
+				<th class="col-md-2"></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for inmueble in inmuebles %}
+			<tr>
+				<td>{{ inmueble.nombre }}</td>
+				<td>{{ inmueble.tipoInmueble }}</td>
+				<td> <ul class="tipsMisInmuebles">
+					<li><img src="/img/surface.png"/> {{ inmueble.superficie }} m<sup>2</sup></li>
+					<li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
+					<li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
+				</ul>
+				</td>
+				<td>
+					<a href="/inmueble/{{ inmueble._id.toString() }}">Ver en detalle</a> <br>
+			    </td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block titulo %} Listado de Inmuebles – Housing {% endblock %} 
+{% block titulo %} Listado de Inmuebles – uo Pisos {% endblock %} 
 
 {% block contenido_principal %}
 <!-- Búsqueda -->
@@ -10,12 +10,12 @@
         <h4 class="panel-title">Filtra tus preferencias</h4>
     </div>
     <div class="panel-body">
-        <form role="form">
+        <form role="form" action="/inmuebles" method="post">
             <fieldset>
                 <div class="form-group">
                     <label for="tipoInmueble">Tipo de inmueble:</label>
-                    <select class="form-control" id="tipoInmueble">
-                        <option>Pisos</option>
+                    <select class="form-control" id="tipoInmueble" name="tipoInmueble">
+                        <option>Piso</option>
                         <option>Casa</option>
                         <option>Bajo</option>
                         <option>Local</option>
@@ -23,9 +23,9 @@
                 </div>
                 <div class="form-group">
                     <label for="precio">Precio</label>
-                    <input class="form-control" placeholder="Desde" id="precioDesde" type="number" step="1000">
+                    <input class="form-control" placeholder="Desde" id="precioDesde" name="precioDesde" type="number" step="1000">
                     <br>
-                    <input class="form-control" placeholder="Hasta" id="precioHasta" type="number" step="1000">
+                    <input class="form-control" placeholder="Hasta" id="precioHasta" name="precioHasta" type="number" step="1000">
                 </div>
                 <div class="form-group">
                     <label for="ubicacion">Ubicación:</label>
@@ -67,8 +67,8 @@
     <ul class="pagination">
         {% for pagina in paginas %}
         <li class="page-item" id="pi-{{ pagina}}">
-            <a class="page-link" href="/inmuebles?pg={{ pagina }}" >{{ pagina }}</a>
-        </li>
+            <a class="page-link" href="/inmuebles?pg={{ pagina }}&tipo={{ tipo }}&precioDesde={{ precioDesde }}&precioHasta={{ precioHasta }}&ubicacion={{ ubicacion }}" >{{ pagina }}</a>
+        </li> 
         {% endfor %}
         <script>
             $( "#pi-{{ actual}}" ).addClass("active");

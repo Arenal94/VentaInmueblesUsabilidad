@@ -68,3 +68,103 @@ body{
     margin-top: 10px;
 }
 
+.love {
+    cursor: pointer;
+    width: 100px;
+    height: 26px;
+    background: white;
+    color: rgb(223,77,85);
+    border: 1px solid rgb(223,77,85);
+    border-radius: 3px;
+    font-size: 18px;
+    transition:all .25s ease-in-out;
+    -moz-transition:all .25s ease-in-out;
+    -webkit-transition:all .25s ease-in-out;
+}
+
+.love:hover {
+    background: rgb(223,77,85);
+    color: white;
+}
+.love .text {
+    position: absolute;
+    margin-top: -22px;
+    margin-left: 32px;
+    text-decoration: none;
+}
+
+.love .heart {
+    background: rgb(223,77,85);
+    height:25px;
+    width:25px;
+}
+
+
+.love .heart div {
+    position: absolute;
+    margin-left:8px;
+    margin-top: 9px;
+    height:8px;
+    width:8px;
+    background: white;
+    -webkit-border-radius: 100% 100% 100% 0px;
+    border-radius: 100% 100% 100% 0px;
+    transform:rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transition:all .25s ease-in-out;
+    -moz-transition:all .25s ease-in-out;
+    -webkit-transition:all .25s ease-in-out;
+    cursor:pointer;
+    opacity:0;
+}
+
+.love .heart div:before {
+    margin-top:-5px;
+    position:absolute;
+    background:white;
+    content: "";
+    width: 8px;
+    height: 8px;
+    -webkit-border-radius: 100% 100% 100% 0px;
+    border-radius: 100% 100% 100% 0px;
+
+}
+
+.love .heart div:after {
+    margin-left:5px;
+    position:absolute;
+    background: white;
+    content: "";
+    width: 8px;
+    height: 8px;
+    -webkit-border-radius: 100% 100% 100% 0px;
+    border-radius: 100% 100% 100% 0px;  
+    transition:all .25s ease-in-out;
+    -moz-transition:all .25s ease-in-out;
+    -webkit-transition:all .25s ease-in-out;
+}
+
+.love.active .heart div {
+    opacity: 1;
+}
+
+#loginTitle{
+    text-align: center;
+}
+
+#imgLogin{
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+}
+
+#misInmueblesTitle{
+    text-align: center;
+    color: white;
+}
+
+#misFavoritosTitle{
+    text-align: center;
+    color: white;
+}
