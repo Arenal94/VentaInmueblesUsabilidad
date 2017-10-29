@@ -80,8 +80,6 @@ module.exports = function(app, swig, gestorBD) {
 	});
 	app.post('/usuario/modificar', function(req, res) {
 		
-	    var seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
-	    	.update(req.body.password).digest('hex');
 		var criterio = {
 			email : req.session.usuario
 		}

@@ -10,13 +10,17 @@
         <h4>Regístrate como usuario y accede a nuestra gran base de datos de inmuebles. ¡Encontrarás lo que estás buscando!</h4>
         <form class="form-horizontal" method="post" action="/usuario" >
             <label for="inputEmail" class="sr-only">Email</label>
-            <input id="inputEmail" type="email" name="email" class="form-control" placeholder="Correo electronico" required autofocus>
+            <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
             <br>
             <label for="inputNombre" class="sr-only">Nombre</label>
-            <input id="inputNombre" type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+            <input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
             <br>
             <label for="inputApellidos" class="sr-only">Apellido(s)</label>
-            <input id="inputApellidos" type="text" name="apellidos" class="form-control" placeholder="Apellidos" required>
+            <input type="text" name="apellidos" class="form-control" placeholder="Apellidos" required>
+            <br>
+            <label for="inputPassword" class="sr-only">Contraseña</label>
+            <input id="inputPassword" type="password"  class="form-control" name="password" 
+        	placeholder="contraseña" required="true" />
             <br>
             <button class="btn btn-primary btn-block" type="submit">Registrarse</button>
         </form>
