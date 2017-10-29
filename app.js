@@ -72,7 +72,7 @@ app.use("/inmuebles/cambiarFavorito",routerUsuarioSession);
 
 app.use(express.static('public'));
 
-app.set('port', process.env.PORT | 8081);
+app.set('port', process.env.PORT || 8081);
 app.set('db','mongodb://miw:miw@ds233895.mlab.com:33895/dpiu');
 app.set('clave','abcdefg');
 app.set('crypto',crypto);
