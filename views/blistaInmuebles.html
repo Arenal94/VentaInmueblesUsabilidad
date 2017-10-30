@@ -39,8 +39,8 @@
     {% for inmueble in inmuebles %}
     <div class="col-xs-4 border padd">
         <a class ="cardListaInmuebles" href="/inmueble/{{ inmueble._id.toString() }}"> 
-            <div class="col-xs-10">
-                <div class="col-xs-4">
+            <div class="col-xs-12">
+                <div class="col-xs-5">
                     <img src="/inmuebles/{{ inmueble._id.toString() }}_1.png" class="img-responsive" alt="logo" width="100" height="100"/>
                 </div>
                 <div class="wrap">{{ inmueble.nombre }}</div>
@@ -51,6 +51,7 @@
                     <li><img src="/img/bed.png"/> {{ inmueble.habitaciones }}</li>
                     <li><img src="/img/bath.png"/> {{ inmueble.banhos }}</li>
                 </ul>
+                <p>{{ inmueble.fechaPublicacion|timePast}}</p>
             </div>
         </a>
     </div>

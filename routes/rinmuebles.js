@@ -45,6 +45,7 @@ module.exports = function(app, swig, gestorBD) {
                         precioHasta: req.query.precioHasta,
                         ubicacion: req.query.ubicacion,
                         inmuebles : inmuebles,
+                        now : new Date(),
                         paginas : paginas,
                         actual : pg
                     });

@@ -42,6 +42,25 @@ var fileUpload = require('express-fileupload');
 app.use(fileUpload());
 var mongo= require('mongodb');
 var swig  = require('swig');
+
+swig.setFilter('timePast', function(element) {
+    var date1 = element;
+    var date2 = new Date();
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffSecs = Math.round(timeDiff / 1000); // seconds
+    var diffMins = Math.round(timeDiff / 60000); // minutes
+    var diffHours = Math.round(timeDiff / 1000/60/60); // hours
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    if(diffSecs<60)
+        return `Publicado hace ${diffSecs} segundo(s)`;
+    if(diffMins<60)
+        return `Publicado hace ${diffMins} minuto(s)`;
+    if(diffHours<24)
+        return `Publicado hace ${diffHours} hora(s)`;
+    else 
+        return `Publicado hace ${diffDays} día(s)`;
+  });
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
