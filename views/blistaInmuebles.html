@@ -40,8 +40,8 @@
     <div class="col-xs-4 border padd">
         <a class ="cardListaInmuebles" href="/inmueble/{{ inmueble._id.toString() }}"> 
             <div class="col-xs-10">
-                <div class="col-xs-5">
-                    <img src="/inmuebles/{{ inmueble._id.toString() }}_1.png"  alt="logo" width="100%"/>
+                <div class="col-xs-4">
+                    <img src="/inmuebles/{{ inmueble._id.toString() }}_1.png" class="img-responsive" alt="logo" width="100" height="100"/>
                 </div>
                 <div class="wrap">{{ inmueble.nombre }}</div>
                 <div class="small"><h4><span class="label label-default">{{ inmueble.tipoInmueble }}</span></h4></div>
