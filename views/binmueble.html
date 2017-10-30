@@ -21,10 +21,10 @@
 <div class="row">
     <div class="media col-xs-10">
         <div class="media-left media-middle col-xs-6">
-            <div class="demo">
+            <div class="demo col-xs-12">
                 {% for x in inmueble.imagenes %}
                 {% if loop.first %}<ul id="lightSlider">{% endif %}
-                <li data-thumb="/thumbs/{{ inmueble._id.toString() }}_{{ loop.index }}.png"> <img src="/inmuebles/{{ inmueble._id.toString() }}_{{ loop.index }}.png" /></li>
+                <li data-thumb="/thumbs/{{ inmueble._id.toString() }}_{{ loop.index }}.png"> <img class="img-responsive" src="/inmuebles/{{ inmueble._id.toString() }}_{{ loop.index }}.png" /></li>
                 {% if loop.last %}</ul>{% endif %}
                 {% endfor %}
             </div>

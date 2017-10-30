@@ -40,7 +40,7 @@ body{
     color: dodgerblue;
 }
 .demo {
-    width:420px;
+    /*width:420px;*/
 }
 .demo ul {
     list-style: none outside none;
