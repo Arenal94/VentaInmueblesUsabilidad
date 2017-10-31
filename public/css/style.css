@@ -8,7 +8,9 @@ body{
 .tipsListaInmuebles{
     text-align: left;
 }
-
+.dd{
+    max-width: 100%;
+}
 .tipsListaInmuebles  li{
     list-style: none;
     display: inline;
