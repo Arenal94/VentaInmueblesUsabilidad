@@ -12,7 +12,9 @@
     .table td{
         text-align: center;   
     }
-    
+    .noInmuebles{
+        color:white;
+    }
     .table th{
         text-align: center;   
     }
@@ -21,6 +23,7 @@
 <div class="table-responsive col-sm-10 col-sm-offset-1">
     <a href="/inmuebles/agregar" class="btn btn-primary btn-block" role="button">Agregar inmueble</a>
     <br>
+    {% if inmuebles.length>0 %}
     <table class="table table-hover table-bordered">
         <thead> 
             <tr>
@@ -56,6 +59,10 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p class="text-center noInmuebles">Aún no has publicado inmuebles. Comienza haciendo click en "Agregar Inmueble"</p>
+    {% endif %}
+
 </div>
 
 
