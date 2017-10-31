@@ -6,12 +6,15 @@ body{
 }
 
 .tipsListaInmuebles{
-    text-align: center;
+    text-align: left;
 }
 
 .tipsListaInmuebles  li{
     list-style: none;
     display: inline;
+}
+.badges {
+    min-height: 20px;
 }
 .tipsMisInmuebles li{
     list-style: none;
@@ -23,7 +26,6 @@ body{
 .cardListaInmuebles:hover{
     text-decoration: none;
 }
-
 .border > img{
     display:block;
     margin:auto;
@@ -35,7 +37,10 @@ body{
 .border{
     border: 2px solid teal;
     border-radius: 15px 50px 30px;
-    padding: 6px;
+    padding-top: 2px;
+    padding-bottom: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
     background: white;
     color: dodgerblue;
 }

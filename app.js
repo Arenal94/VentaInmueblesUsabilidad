@@ -61,6 +61,15 @@ swig.setFilter('timePast', function(element) {
         return `Publicado hace ${diffDays} día(s)`;
   });
 
+  swig.setFilter('days', function(element) {
+    var date1 = element;
+    var date2 = new Date();
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        return diffDays;
+  });
+
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
