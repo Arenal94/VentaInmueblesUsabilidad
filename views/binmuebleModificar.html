@@ -23,11 +23,11 @@
         <label class="control-label col-sm-2" for="tipoInmueble">tipo de Inmueble:</label>
         <div class="col-sm-10 selDiv" >
             <select class="form-control" name="tipoInmueble" required="true" >
-                <option value="Piso">Piso</option>
-                <option value="Apartamento">Apartamento</option>
-                <option value="Casa">Casa</option>
-                <option value="Bajo">Bajo</option>
-                <option value="Local">Local</option>
+                    <option value="Piso" data-image="/img/piso.png">Piso</option>
+                    <option value="Casa" data-image="/img/casa.png">Casa</option>
+                    <option value="Bajo" data-image="/img/bajo.png">Bajo</option>
+                    <option value="Local" data-image="/img/local.png">Local</option>
+                    <option value="Apartamento" data-image="/img/apartamento.png">Apartamento</option>
             </select>
         </div>
         <script>$('.selDiv option[value="{{ inmueble.tipoInmueble }}"]').prop('selected', true);</script>

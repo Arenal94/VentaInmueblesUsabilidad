@@ -3,7 +3,7 @@
 {% block titulo %} Listado de Inmuebles – uo Pisos {% endblock %} 
 
 {% block contenido_principal %}
-<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+<div class="col-xs-4 col-sm-4 col-md-2 col-lg-4">
     <div class="panel-heading">
         <img src="/img/logo.png" alt="logo"/>
         <h4 class="panel-title">Filtra tus preferencias</h4>
@@ -14,10 +14,11 @@
                 <div class="form-group">
                     <label for="tipoInmueble">Tipo de inmueble:</label>
                     <select class="form-control" id="tipoInmueble" name="tipoInmueble">
-                        <option>Piso</option>
-                        <option>Casa</option>
-                        <option>Bajo</option>
-                        <option>Local</option>
+                        <option data-image="/img/piso.png">Piso</option>
+                        <option data-image="/img/casa.png">Casa</option>
+                        <option data-image="/img/bajo.png">Bajo</option>
+                        <option data-image="/img/local.png">Local</option>
+                        <option data-image="/img/apartamento.png">Apartamento</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -35,7 +36,7 @@
         </form>
     </div>
 </div>
-<div class="row inmueblesList col-xs-8 col-sm-8 col-md-10 col-lg-10">
+<div class="row inmueblesList col-xs-8 col-sm-8 col-md-10 col-lg-8">
     {% for inmueble in inmuebles %}
     <div class="col-xs-12 col-sm-8 col-md-5 col-lg-4 border padd">
         <a class ="cardListaInmuebles" href="/inmueble/{{ inmueble._id.toString() }}"> 
@@ -47,10 +48,10 @@
                     {% endif %}
             </div>
             <div class="col-xs-12">
-                <div class="col-xs-5">
+                <div class="col-xs-7">
                     <img src="/inmuebles/{{ inmueble._id.toString() }}_1.png" class="img-responsive" alt="logo" width="100" height="100"/>
                 </div>
-                <div class="col-xs-5">
+                <div class="col-xs-4">
                     <div class="row">
                         <div class="wrap">{{ inmueble.nombre }}</div>
                     </div>
