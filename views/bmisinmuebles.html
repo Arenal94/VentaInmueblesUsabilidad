@@ -48,7 +48,7 @@
                 <td>{% if inmueble.fechaModificacion %}
                     {{inmueble.fechaModificacion.getDate()}}/{{inmueble.fechaModificacion.getMonth()+1}}/{{inmueble.fechaModificacion.getFullYear()}} {{inmueble.fechaModificacion.getHours()}}:{{inmueble.fechaModificacion.getMinutes()}}
                     {% else %} 
-                    No se ha modificado
+                    
                     {% endif %}
                 </td>
                 <td><a href="/inmueble/modificar/{{ inmueble._id.toString() }}">Modificar</a> <br>
