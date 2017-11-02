@@ -19,12 +19,15 @@
         text-align: center;   
     }
 </style>
+<script>$(document).ready(function() {
+    $('#example').DataTable();
+} );</script>
 <h2 id="misInmueblesTitle">Mis Inmuebles</h2>
 <div class="table-responsive col-sm-10 col-sm-offset-1">
     <a href="/inmuebles/agregar" class="btn btn-primary btn-block" role="button">Agregar inmueble</a>
     <br>
     {% if inmuebles.length>0 %}
-    <table class="table table-hover table-bordered">
+    <table id="example" class="table table-hover table-bordered">
         <thead> 
             <tr>
                 <th>Nombre</th>
