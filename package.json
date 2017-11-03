@@ -1,8 +1,8 @@
 {
-  "name": "TiendaMusica",
+  "name": "VentaInmuebles",
   "version": "0.1.0",
-  "description": "TiendaMusica",
-  "main": "hello-world-server.js",
+  "description": "VentaInmuebles",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1",
     "start": "node app.js"
@@ -25,7 +25,7 @@
     "jade": "^1.11.0",
     "mongodb": "^2.2.33",
     "nodemon": "^1.12.1",
-    "swig": "^1.4.2",
-	  "sharp": "^0.18.4"
+    "sharp": "^0.18.4",
+    "swig": "^1.4.2"
   }
 }

@@ -22,6 +22,11 @@ body{
     list-style: none;
     display: inline;
 }
+.misInmueblesActions li{
+    list-style: none;
+    display: inline;
+    padding-right: 20%;
+}
 .cardListaInmuebles{
     text-decoration: none;
 }
