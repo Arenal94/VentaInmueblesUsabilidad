@@ -81,8 +81,11 @@ gestorBD.init(app,mongo);
 var routerUsuarioSession = express.Router(); 
 routerUsuarioSession.use(function(req, res, next) {
     console.log("routerUsuarioSession");
+    console.log(req.baseUrl);
     if(req.baseUrl)
         req.session.bounceTo=req.baseUrl;
+    else
+        req.session.bounceTo="/";
     if ( req.session.usuario ) {
         // dejamos correr la petición
         next();

@@ -35,25 +35,28 @@
                     <ul class="nav navbar-nav">
                         <li id="mTienda"><a href="/inmuebles">¡Encuentra tu piso!</a></li>
                     </ul>
+                    {% if !userReq %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Regístrate</a></li>
+                        <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+                    {% else %}
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown ">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" > Configuración
-                                <span class="glyphicon glyphicon-th-list"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" > Mi perfil
+                                <span class="glyphicon glyphicon-user"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Regístrate</a></li>
-                                <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a></li>
+                                <li id="mVerPerfil"><a href="/usuario/perfil">
+                                    <span class="glyphicon glyphicon-pencil"></span> Ver/Modificar Perfil</a></li>
+                                    <li id="mCerrarSesion"><a href="/desconectarse">
+                                        <span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown ">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" >Perfil
-                                <span class="glyphicon glyphicon-user"></span></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" > Gestión de inmuebles
+                                <span class="glyphicon glyphicon-th-list"></span></a>
                             <ul class="dropdown-menu">
-                                <li id="mVerPerfil"><a href="/usuario/perfil">
-                                    <span class="glyphicon glyphicon-user"></span> Ver/Modificar Perfil</a></li>
                                 <li id="mMisInmuebles"><a href="/misinmuebles">
                                     <span class="glyphicon glyphicon-home"></span> Mis Inmuebles</a></li>
                                 <li id="mFavoritos"><a href="/misfavoritos">
@@ -61,6 +64,7 @@
                             </ul>
                         </li>
                     </ul>
+                    {% endif %}
                 </div>
             </div>
         </nav>

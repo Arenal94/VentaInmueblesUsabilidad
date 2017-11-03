@@ -47,7 +47,8 @@ module.exports = function(app, swig, gestorBD) {
                         inmuebles : inmuebles,
                         now : new Date(),
                         paginas : paginas,
-                        actual : pg
+                        actual : pg,
+                        userReq : req.session.usuario
                     });
                     res.send(respuesta);
                 });
@@ -99,7 +100,8 @@ module.exports = function(app, swig, gestorBD) {
                         ubicacion: req.body.ubicacion,
                         inmuebles : inmuebles,
                         paginas : paginas,
-                        actual : pg
+                        actual : pg,
+                        userReq : req.session.usuario
                     });
                     res.send(respuesta);
                 });
@@ -120,7 +122,8 @@ module.exports = function(app, swig, gestorBD) {
                     inmueble : inmuebles[0],
                     precio: parseInt(inmuebles[0].precio).toLocaleString("es-ES").replace(/,/g, '.'),
                     usuario: req.session.usuario,
-                    valoracionGlobal: inmuebles[0].valoracion.reduce(function(a, b) { return parseInt(a) + parseInt(b); })/ parseInt(inmuebles[0].valoracion.length == 1 ? 1 : inmuebles[0].valoracion.length - 1)
+                    valoracionGlobal: inmuebles[0].valoracion.reduce(function(a, b) { return parseInt(a) + parseInt(b); })/ parseInt(inmuebles[0].valoracion.length == 1 ? 1 : inmuebles[0].valoracion.length - 1),
+                    userReq: req.session.usuario,
                 });
                 return res.send(respuesta);
             }
@@ -143,7 +146,8 @@ module.exports = function(app, swig, gestorBD) {
                         res.send("Error al listar ");
                     } else {
                         var respuesta = swig.renderFile('views/bmisinmuebles.html', {
-                            inmuebles : inmuebles
+                            inmuebles : inmuebles,
+                            userReq : req.session.usuario
                         });
                         res.send(respuesta);
                     }
@@ -162,7 +166,8 @@ module.exports = function(app, swig, gestorBD) {
             } else {
                 var respuesta = swig.renderFile('views/binmuebleModificar.html',
                                                 {
-                    inmueble : inmuebles[0]
+                    inmueble : inmuebles[0],
+                    userReq : req.session.usuario
                 });
                 res.send(respuesta);
             }
@@ -208,7 +213,8 @@ module.exports = function(app, swig, gestorBD) {
                                 res.send("Error al listar ");
                             } else {
                                 var respuesta = swig.renderFile('views/bmisinmuebles.html', {
-                                    inmuebles : inmuebles
+                                    inmuebles : inmuebles,
+                                    userReq : req.session.usuario
                                 });
                                 res.send(respuesta);
                             }
@@ -277,7 +283,8 @@ module.exports = function(app, swig, gestorBD) {
                         res.send("Error al listar ");
                     } else {
                         var respuesta = swig.renderFile('views/bmisfavoritos.html', {
-                            inmuebles : inmuebles
+                            inmuebles : inmuebles,
+                            userReq : req.session.usuario
                         });
                         res.send(respuesta);
                     }
@@ -324,7 +331,8 @@ module.exports = function(app, swig, gestorBD) {
                 res.send("Error al listar ");
             } else {
                 var respuesta = swig.renderFile('views/bmisinmuebles.html', {
-                    inmuebles : inmuebles
+                    inmuebles : inmuebles,
+                    userReq : req.session.usuario
                 });
                 res.send(respuesta);
             }
@@ -340,7 +348,8 @@ module.exports = function(app, swig, gestorBD) {
                 res.send("Error al listar ");
             } else {
                 var respuesta = swig.renderFile('views/bmisfavoritos.html', {
-                    inmuebles : inmuebles
+                    inmuebles : inmuebles,
+                    userReq : req.session.usuario
                 });
                 res.send(respuesta);
             }
@@ -402,7 +411,8 @@ module.exports = function(app, swig, gestorBD) {
                             res.send("Error al listar ");
                         } else {
                             var respuesta = swig.renderFile('views/bmisinmuebles.html', {
-                                inmuebles : inmuebles
+                                inmuebles : inmuebles,
+                                userReq : req.session.usuario
                             });
                             res.send(respuesta);
                         }

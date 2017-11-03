@@ -7,7 +7,8 @@ module.exports = function(app, swig, gestorBD) {
 	});
 	app.get("/contacto", function(req, res) {
 		var respuesta = swig.renderFile('views/bcontacto.html', {
-			vendedor :	req.query.vendedor
+			vendedor :	req.query.vendedor,
+			userReq : req.session.usuario
 		});
 		res.send(respuesta);
 	});
@@ -20,7 +21,7 @@ module.exports = function(app, swig, gestorBD) {
 		cuerpo: req.body.mensaje,
 	}
 		app.mailer.send('email', {
-			to: [mensaje.emailReceptor], // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+			to: [mensaje.emailReceptor],
 			subject: 'Un posible comprador quiere ponerse en contacto', // REQUIRED. 
 			message: mensaje.cuerpo ,
 			emailEmisor: mensaje.emailEmisor,
@@ -51,8 +52,10 @@ module.exports = function(app, swig, gestorBD) {
 
 			} else {
 				req.session.usuario = usuarios[0].email;
-				res.redirect(req.session.bounceTo);
-
+				if(req.session.bounceTo)
+					res.redirect(req.session.bounceTo);
+				else
+					res.redirect("/inmuebles");
 			}
 
 		});
@@ -72,7 +75,8 @@ module.exports = function(app, swig, gestorBD) {
                 return res.send(respuesta);
             } else {
                 var respuesta = swig.renderFile('views/bperfil.html', {
-                    usuario : usuarios[0],
+					usuario : usuarios[0],
+					userReq : req.session.usuario
                 });
                 return res.send(respuesta);
             }
