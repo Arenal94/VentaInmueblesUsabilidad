@@ -20,10 +20,13 @@
         text-align: center;   
     }
 </style>
+<script>$(document).ready(function() {
+    $('#misFavoritosTable').DataTable();
+} );</script>
 <h2 id="misFavoritosTitle">Mis inmuebles favoritos</h2>
 <div class="table-responsive">
 	{% if inmuebles.length>0 %}
-	<table class="table table-hover">
+	<table id="misFavoritosTable" class="table table-hover">
 		<thead>
 			<tr>
 				<th>Nombre</th>
