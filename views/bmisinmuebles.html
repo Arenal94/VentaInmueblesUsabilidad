@@ -13,15 +13,15 @@
         text-align: center;   
     }
     .noInmuebles{
-        color:white;
+        color: black;
     }
     .table th{
         text-align: center;   
     }
 </style>
 <script>$(document).ready(function() {
-    $('#misInmueblesTable').DataTable();
-} );</script>
+        $('#misInmueblesTable').DataTable();
+    } );</script>
 <h2 id="misInmueblesTitle">Mis Inmuebles</h2>
 <div class="table-responsive col-sm-10 col-sm-offset-1">
     <a href="/inmuebles/agregar" class="btn btn-primary btn-block" role="button">Agregar inmueble</a>
@@ -51,16 +51,16 @@
                 <td>{% if inmueble.fechaModificacion %}
                     {{inmueble.fechaModificacion.getDate()}}/{{inmueble.fechaModificacion.getMonth()+1}}/{{inmueble.fechaModificacion.getFullYear()}} {{inmueble.fechaModificacion.getHours()}}:{{inmueble.fechaModificacion.getMinutes()}}
                     {% else %} 
-                    
+
                     {% endif %}
                 </td>
                 <td><ul class="misInmueblesActions">
                     <li>
-                    <a href="/inmueble/modificar/{{ inmueble._id.toString() }}"> <span class="glyphicon glyphicon-edit"></span></a> </li>
-                   <!-- <li><a href="/inmueble/eliminar/{{ inmueble._id.toString() }}"> <span class="glyphicon glyphicon-trash"></span></a> </li>-->
-                   <li><a href="#"  onclick="confirmarEliminacion('{{ inmueble.nombre }}','{{ inmueble._id.toString() }}');return false;"> <span class="glyphicon glyphicon-trash"></span></a> </li>
+                        <a href="/inmueble/modificar/{{ inmueble._id.toString() }}"> <span class="glyphicon glyphicon-edit"></span></a> </li>
+                    <!-- <li><a href="/inmueble/eliminar/{{ inmueble._id.toString() }}"> <span class="glyphicon glyphicon-trash"></span></a> </li>-->
+                    <li><a href="#"  onclick="confirmarEliminacion('{{ inmueble.nombre }}','{{ inmueble._id.toString() }}');return false;"> <span class="glyphicon glyphicon-trash"></span></a> </li>
                     <li><a href="/inmueble/{{ inmueble._id.toString() }}"> <span class="glyphicon glyphicon-search"></span></a> </li>
-                </ul>
+                    </ul>
                 </td>
             </tr>
             {% endfor %}
@@ -69,34 +69,34 @@
     {% else %}
     <p class="text-center noInmuebles">Aún no has publicado inmuebles. Comienza haciendo click en "Agregar Inmueble"</p>
     {% endif %}
-    <div id="dialogConfirmarDelete" style="display:none">¿Estas seguro de eliminarlo?</div>
-<script>
-    function confirmarEliminacion(inmueble,id){
-    $( "#dialogConfirmarDelete" ).dialog({
-        modal: true,
-        title: "Eliminar "+inmueble,
-        dialogClass: "no-close",
-        autoOpen:false,
-        buttons: [
-            {
-            text: "Cancelar",
-            click: function() {
-                $( this ).dialog( "close" );
-            }
-            },
-            {
-            text: "Sí",
-            click: function() {
-                window.location.href = "/inmueble/eliminar/"+id; 
-                $( this ).dialog( "close" );
-            }
-            }
+    <div id="dialogConfirmarDelete" style="display:none">¿Estás seguro que deseas eliminar el inmueble seleccionado? Los cambios efectuados serán irreversibles.</div>
+    <script>
+        function confirmarEliminacion(inmueble,id){
+            $( "#dialogConfirmarDelete" ).dialog({
+                modal: true,
+                title: "Eliminar "+inmueble,
+                dialogClass: "no-close",
+                autoOpen:false,
+                buttons: [
+                    {
+                        text: "Cancelar",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                    {
+                        text: "Sí",
+                        click: function() {
+                            window.location.href = "/inmueble/eliminar/"+id; 
+                            $( this ).dialog( "close" );
+                        }
+                    }
 
-        ]
-    });
-    $( "#dialogConfirmarDelete" ).dialog('open');
-}
-</script>
+                ]
+            });
+            $( "#dialogConfirmarDelete" ).dialog('open');
+        }
+    </script>
 </div>
 
 

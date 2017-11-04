@@ -14,8 +14,8 @@ module.exports = function(app, swig, gestorBD) {
                     $regex : ".*" + req.query.ubicacion + ".*"
                 },
                 "precio":{
-                    $gte: req.query.precioDesde.length == 0 ? '0' : req.query.precioDesde,
-                    $lte: req.query.precioHasta.length == 0 ? '5000000' : req.query.precioHasta
+                    $gte: req.query.precioDesde,
+                    $lte: req.query.precioHasta
                 },
                 "tipoInmueble":{
                     $regex : ".*" + req.query.tipo + ".*"
@@ -38,34 +38,50 @@ module.exports = function(app, swig, gestorBD) {
                             paginas.push(i);
                         }
                     }
-                    var respuesta = swig.renderFile('views/blistaInmuebles.html', 
-                                                    {
-                        tipo : req.query.tipo,
-                        precioDesde: req.query.precioDesde,
-                        precioHasta: req.query.precioHasta,
-                        ubicacion: req.query.ubicacion,
-                        inmuebles : inmuebles,
-                        now : new Date(),
-                        paginas : paginas,
-                        actual : pg,
-                        userReq : req.session.usuario
+                    var min = Number.POSITIVE_INFINITY;
+                    var max = 0;
+                    gestorBD.obtenerInmuebles(criterio, function(inm) {
+                        if (inm == null) {
+                            console.log('Error');
+                        } else {
+                            for(var i=0; i< inm.length; i++) {
+                                if(parseInt(inm[i].precio) < min)
+                                    min = parseInt(inm[i].precio)
+                                if(parseInt(inm[i].precio) > max)
+                                    max = parseInt(inm[i].precio)
+                            }
+                            var respuesta = swig.renderFile('views/blistaInmuebles.html', 
+                                                            {
+                                tipo : req.query.tipo,
+                                ubicacion: req.query.ubicacion,
+                                inmuebles : inmuebles,
+                                precioDesde: min,
+                                precioHasta: max,
+                                now : new Date(),
+                                paginas : paginas,
+                                actual : pg,
+                                userReq : req.session.usuario
+                            });
+                            res.send(respuesta);
+                        }
                     });
-                    res.send(respuesta);
                 });
             }
         });
 
     }),
-        app.post("/inmuebles", function(req, res) {
+    app.post("/inmuebles", function(req, res) {
         var criterio = {};
+        console.log(req.body.precioDesde);
+        console.log(req.body.precioHasta);
         if (req.body.tipoInmueble != null) {
             criterio = {
                 "ubicacion" : {
                     $regex : ".*" + req.body.ubicacion + ".*"
                 },
                 "precio":{
-                    $gte: req.body.precioDesde.length == 0 ? '0' : req.body.precioDesde,
-                    $lte: req.body.precioHasta.length == 0 ? '5000000' : req.body.precioHasta
+                    $gte: req.body.precioDesde,
+                    $lte: req.body.precioHasta
                 },
                 "tipoInmueble":{
                     $eq : req.body.tipoInmueble
@@ -92,18 +108,33 @@ module.exports = function(app, swig, gestorBD) {
                             paginas.push(i);
                         }
                     }
-                    var respuesta = swig.renderFile('views/blistaInmuebles.html', 
-                                                    {
-                        tipo : req.body.tipoInmueble,
-                        precioDesde: req.body.precioDesde,
-                        precioHasta: req.body.precioHasta,
-                        ubicacion: req.body.ubicacion,
-                        inmuebles : inmuebles,
-                        paginas : paginas,
-                        actual : pg,
-                        userReq : req.session.usuario
+                    var min = Number.POSITIVE_INFINITY;
+                    var max = 0;
+                    gestorBD.obtenerInmuebles({}, function(inm) {
+                        if (inm == null) {
+                            console.log('Error');
+                        } else {
+                            for(var i=0; i< inm.length; i++) {
+                                if(parseFloat(inm[i].precio) < min)
+                                    min = parseFloat(inm[i].precio)
+                                if(parseFloat(inm[i].precio) > max)
+                                    max = parseFloat(inm[i].precio)
+                            }
+                            var respuesta = swig.renderFile('views/blistaInmuebles.html', 
+                                                            {
+                                tipo : req.query.tipo,
+                                ubicacion: req.query.ubicacion,
+                                inmuebles : inmuebles,
+                                precioDesde: min,
+                                precioHasta: max,
+                                now : new Date(),
+                                paginas : paginas,
+                                actual : pg,
+                                userReq : req.session.usuario
+                            });
+                            res.send(respuesta);
+                        }
                     });
-                    res.send(respuesta);
                 });
             }
         });
@@ -368,6 +399,17 @@ module.exports = function(app, swig, gestorBD) {
             }
 
         }
+        if (req.files.fotos != null) {
+            if(req.files.fotosDrag.length==undefined){
+                imagenes.push(req.files.fotosDrag);
+            }
+            else{
+                for (i = 0; i < req.files.fotosDrag.length; i++) { 
+                    imagenes.push(req.files.fotosDrag[i]);
+                }
+            }
+
+        }
         var inmueble = {
             nombre : req.body.nombre,
             tipoInmueble : req.body.tipoInmueble,
@@ -422,5 +464,4 @@ module.exports = function(app, swig, gestorBD) {
             }
         });
     });
-
 };
