@@ -43,21 +43,21 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-lg-3">
                 <label class="control-label col-sm-4" for="banhos">Baños:</label>
                 <div class="col-sm-8">          
                     <input type="number" class="form-control" name="banhos" 
                         placeholder="1" required="true" />
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-lg-3">
                 <label class="control-label col-sm-6" for="habitaciones">Habitaciones:</label>
                 <div class="col-sm-6">          
                     <input type="number" class="form-control" name="habitaciones" 
                         placeholder="3" required="true" />
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-lg-3">
                 <label class="control-label col-sm-6" for="superficie">Superficie(m<sup>2</sup>):</label>
                 <div class="col-sm-6">          
                     <input type="number" class="form-control" name="superficie" 
@@ -108,47 +108,9 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <div id="googleMap" style="width:100%;height:300px;"></div>
+            <div id="googleMap" style="width:100%;height:250px;"></div>
         </div>
-        <script>
-                var marker;
-                function myMap() {
-                    var mapProp= {
-                        center:new google.maps.LatLng(45.416775,-16.703790),
-                        zoom:5,
-                    };
-                    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-                    var geocoder = new google.maps.Geocoder;
-                    google.maps.event.addListener(map, "dblclick", function(event) {
-                        if(marker!=undefined){
-                            marker.setMap(null)
-                        }
-                        marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
-                            map: map,
-                            title: 'Ubicación de la vivienda'
-                        });
-                        geocodeLatLng(geocoder, map)
-                    });
-                }
-                function geocodeLatLng(geocoder, map) {
-                    geocoder.geocode({'location': marker.position}, function(results, status) {
-                        if (status === 'OK') {
-                            if (results[1]) {
-                                $("#lat").val(marker.getPosition().lat());
-                                $("#lng").val(marker.getPosition().lng());
-                                $("#ubicacion").val(results[1].formatted_address);
-                            } else {
-                                window.alert('No results found');
-                            }
-                        } else {
-                            window.alert('Geocoder failed due to: ' + status);
-                        }
-                    });
-                }
-               // google.maps.event.addDomListener(window, 'load', myMap);
-            
-            </script>
+        <script src="/js/googlemap.js"></script>
          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
 		<input type="button" name="previous" class="previous action-button" value="Anterior" />
 		<input type="button" name="next" class="next action-button" value="Siguiente" />

@@ -27,7 +27,7 @@
 }
 /*Hide all except first fieldset*/
 #msform fieldset:not(:first-of-type) {
-	display: none;
+	visibility: hidden;
 }
 /*inputs*/
 #msform input, #msform textarea {

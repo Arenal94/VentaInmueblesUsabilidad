@@ -14,7 +14,7 @@ $(".next").click(function(){
 	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 	
 	//show the next fieldset
-	next_fs.show(); 
+	next_fs.css({'visibility':"visible"});
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
 		step: function(now, mx) {
@@ -30,7 +30,7 @@ $(".next").click(function(){
 		}, 
 		duration: 800, 
 		complete: function(){
-			current_fs.hide();
+			current_fs.css({'visibility':"hidden"});
 			animating = false;
 		}, 
 		//this comes from the custom easing plugin
@@ -49,7 +49,7 @@ $(".previous").click(function(){
 	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 	
 	//show the previous fieldset
-	previous_fs.show(); 
+	previous_fs.css({'visibility':"visible"});
 	//hide the current fieldset with style
 	current_fs.animate({opacity: 0}, {
 		step: function(now, mx) {
@@ -65,14 +65,10 @@ $(".previous").click(function(){
 		}, 
 		duration: 800, 
 		complete: function(){
-			current_fs.hide();
+			current_fs.css({'visibility':"hidden"});
 			animating = false;
 		}, 
 		//this comes from the custom easing plugin
 		easing: 'easeInOutBack'
 	});
 });
-
-$(".submit").click(function(){
-	return false;
-})
