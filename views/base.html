@@ -41,7 +41,29 @@
                         <li id="mTienda"><a href="/inmuebles">¡Encuentra tu piso!</a></li>
                     </ul>
                     {% if !userReq %}
+                    
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" >Profesionales
+                                <span class="glyphicon glyphicon-education"></span></a>
+                            <ul class="dropdown-menu">
+                                <li id="mInversiones"><a href="#">
+                                    <span class="glyphicon glyphicon-usd"></span> Inversiones</a></li>
+                                    <li id="mNegocios"><a href="#">
+                                        <span class="glyphicon glyphicon-piggy-bank"></span> Negocios</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" >Inmobiliarias
+                                    <span class="glyphicon glyphicon-briefcase"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li id="mInversiones"><a href="#">
+                                        <span class="glyphicon glyphicon-book"></span> Promociones inmobiliarias</a></li>
+                                        <li id="mNegocios"><a href="#">
+                                            <span class="glyphicon glyphicon-calendar"></span> Opciones de financiación</a></li>
+                                </ul>
+                            </li>
+                        <li><a href="#"><span class="glyphicon glyphicon-euro"></span> Comparadora de hipotecas</a></li>
                         <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Regístrate</a></li>
                         <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
                     {% else %}
