@@ -408,7 +408,6 @@ module.exports = function(app, swig, gestorBD) {
                     imagenes.push(req.files.fotosDrag[i]);
                 }
             }
-
         }
         var inmueble = {
             nombre : req.body.nombre,
