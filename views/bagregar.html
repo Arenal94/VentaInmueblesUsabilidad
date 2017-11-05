@@ -9,141 +9,173 @@
         background-size:cover;
     }
 </style>
-<h2>Agregar Inmueble</h2>
-<form class="form-horizontal" method="post" action="/inmueble" encType="multipart/form-data" id="add">
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="nombre">Nombre:</label>
-        <div class="col-sm-5">
-            <input type="text" class="form-control" name="nombre"
-                   placeholder="Nombre del inmueble" required="true" />
+<form id="msform" method="post" action="/inmueble" encType="multipart/form-data">
+	<!-- progressbar -->
+	<ul id="progressbar">
+        <li class="active">Características del inmueble</li>
+        <li>Descripcion y precio</li>
+		<li>Fijar Localización</li>
+		<li>Adjuntar fotos</li>
+	</ul>
+	<!-- fieldsets -->
+	<fieldset>
+		<h2 class="fs-title">Características del inmueble</h2>
+		<h3 class="fs-subtitle">Cuéntanos de que dispone tu inmueble</h3>
+		<div class="form-group">
+            <div class="col-sm-7">
+                <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="nombre"
+                        placeholder="Nombre del inmueble" required="true" />
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <label class="control-label col-sm-5" for="tipoInmueble">Tipo de Inmueble:</label>
+                <div class="col-sm-7">
+                    <select class="form-control" name="tipoInmueble" required="true">
+                        <option value="Piso" data-image="/img/piso.png">Piso</option>
+                        <option value="Casa" data-image="/img/casa.png">Casa</option>
+                        <option value="Bajo" data-image="/img/bajo.png">Bajo</option>
+                        <option value="Local" data-image="/img/local.png">Local</option>
+                        <option value="Apartamento" data-image="/img/apartamento.png">Apartamento</option>
+                    </select>
+                </div>
+            </div>
         </div>
-        <label class="control-label col-sm-2" for="tipoInmueble">Tipo de Inmueble:</label>
-        <div class="col-sm-3">
-            <select class="form-control" name="tipoInmueble" required="true">
-                <option value="Piso" data-image="/img/piso.png">Piso</option>
-                <option value="Casa" data-image="/img/casa.png">Casa</option>
-                <option value="Bajo" data-image="/img/bajo.png">Bajo</option>
-                <option value="Local" data-image="/img/local.png">Local</option>
-                <option value="Apartamento" data-image="/img/apartamento.png">Apartamento</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="banhos">Baños:</label>
-        <div class="col-sm-2">          
-            <input type="number" class="form-control" name="banhos" 
-                   placeholder="1" required="true" />
-        </div>
-        <label class="control-label col-sm-2" for="habitaciones">Habitaciones:</label>
-        <div class="col-sm-2">          
-            <input type="number" class="form-control" name="habitaciones" 
-                   placeholder="3" required="true" />
-        </div>
-        <label class="control-label col-sm-2" for="superficie">Superficie(m<sup>2</sup>):</label>
-        <div class="col-sm-2">          
-            <input type="number" class="form-control" name="superficie" 
-                   placeholder="55.75" required="true" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="descripcion">Descripcion(Opcional):</label>
-        <div class="col-sm-10"> 
-            <textarea class="form-control" rows="3" name="descripcion" id="descripcion"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="precio">Precio(€):</label>
-        <div class="col-sm-10">          
-            <input type="number" class="form-control" name="precio" 
-                   placeholder="300.000" required="true" />
-        </div>
-    </div>
-
-
-    <div id="fupload">
-        <h4>Sube las imágenes de tu piso</h4>
-        <h5>Tienes dos opciones: <b>Súbeles directamente desde tu equipo</b> o <b>arrástralas al recuadro de la parte derecha</b></h5>
         <div class="form-group">
-            <div class="col-sm-6">
-                <label class="control-label" for="fotos">Subir desde archivo:</label>
-                <br>
-                <input type="file" class="custom-file-input" name="fotos" id="fotos" accept=".png" multiple/>
+            <div class="col-sm-4">
+                <label class="control-label col-sm-4" for="banhos">Baños:</label>
+                <div class="col-sm-8">          
+                    <input type="number" class="form-control" name="banhos" 
+                        placeholder="1" required="true" />
+                </div>
             </div>
-            <label class="control-label" for="fotos">Arrastrar aquí:</label>
-            <br>
-            <div class="col-sm-6 drag">
-                <input type="file" id="fotosDrag" name="fotosDrag" accept=".png" multiple>
-                <p id="dragTitle">O arrastra aquí tus imágenes</p>
+            <div class="col-sm-4">
+                <label class="control-label col-sm-6" for="habitaciones">Habitaciones:</label>
+                <div class="col-sm-6">          
+                    <input type="number" class="form-control" name="habitaciones" 
+                        placeholder="3" required="true" />
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="control-label col-sm-6" for="superficie">Superficie(m<sup>2</sup>):</label>
+                <div class="col-sm-6">          
+                    <input type="number" class="form-control" name="superficie" 
+                        placeholder="55.75" required="true" />
+                </div>
             </div>
         </div>
-    </div>
-    <br>
-    <div class="form-group">
-        <br>
-        <label class="control-label col-sm-2" for="fotos">Seleccionar ubicacion en el mapa:</label>
-        <div class="col-sm-4">          
-            <input type="text" class="form-control" id ="ubicacion" name="ubicacion"
-                   placeholder="Ubicacion del inmueble" required="true" readonly/>
+        <input type="button" name="next" class="next action-button" value="Siguiente" />
+    </fieldset>
+    <fieldset>
+		<h2 class="fs-title">Descripcion y precio</h2>
+		<h3 class="fs-subtitle">Hablanos sobre tu inmueble y fija un precio</h3>
+		<div class="form-group">
+            <label class="control-label col-sm-2" for="descripcion">Descripcion:</label>
+            <div class="col-sm-10"> 
+                <textarea class="form-control" rows="3" name="descripcion" id="descripcion"></textarea>
+            </div>
         </div>
-        <label class="control-label col-sm-1" for="lat">Lat:</label>
-        <div class="col-sm-2">          
-            <input id="lat" type="number" class="form-control" name="lat" 
-                   placeholder="" required="true" readonly/>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="precio">Precio(€):</label>
+            <div class="col-sm-10">          
+                <input type="number" class="form-control" name="precio" 
+                       placeholder="300.000" required="true" />
+            </div>
         </div>
-        <label class="control-label col-sm-1" for="lng">Long:</label>
-        <div class="col-sm-2">          
-            <input id="lng" type="number" class="form-control" name="lng" 
-                   placeholder="" required="true" readonly/>
+    
+        <input type="button" name="previous" class="previous action-button" value="Anterior" />
+		<input type="button" name="next" class="next action-button" value="Siguiente" />
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Fijar Localización</h2>
+		<h3 class="fs-subtitle">Interactúa con el mapa para ubicar tu inmueble</h3>
+        <div class="form-group">
+            <div class="col-sm-6">     
+                <label class="control-label col-sm-1" for="ubicacion">Ubicacion:</label>      
+                <input type="text" class="form-control" id ="ubicacion" name="ubicacion"
+                       placeholder="Ubicacion del inmueble" required="true" readonly/>
+            </div>
+            <div class="col-sm-3">  
+            <label class="control-label col-sm-1" for="lat">Lat:</label>        
+                <input id="lat" type="number" class="form-control" name="lat" 
+                       placeholder="" required="true" readonly/>
+            </div>
+            <div class="col-sm-3">   
+            <label class="control-label col-sm-1" for="lng">Long:</label>       
+                <input id="lng" type="number" class="form-control" name="lng" 
+                       placeholder="" required="true" readonly/>
+            </div>
         </div>
-    </div>
-    <div id="googleMap" style="width:100%;height:300px;"></div>
-    <br>
-    <script>
-        var marker;
-        function myMap() {
-            var mapProp= {
-                center:new google.maps.LatLng(40.416775,-3.703790),
-                zoom:5,
-            };
-            var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-            var geocoder = new google.maps.Geocoder;
-
-            google.maps.event.addListener(map, "dblclick", function(event) {
-                if(marker!=undefined){
-                    marker.setMap(null)
-                }
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
-                    map: map,
-                    title: 'Ubicación de la vivienda'
-                });
-                geocodeLatLng(geocoder, map)
-            });
-
-        }
-        function geocodeLatLng(geocoder, map) {
-            geocoder.geocode({'location': marker.position}, function(results, status) {
-                if (status === 'OK') {
-                    if (results[1]) {
-                        $("#lat").val(marker.getPosition().lat());
-                        $("#lng").val(marker.getPosition().lng());
-                        $("#ubicacion").val(results[1].formatted_address);
-                    } else {
-                        window.alert('No results found');
-                    }
-                } else {
-                    window.alert('Geocoder failed due to: ' + status);
-                }
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
-    <div class="form-group">        
         <div class="col-sm-12">
-            <button type="submit" class="btn btn-primary btn-block">Agregar inmueble</button>
+            <div id="googleMap" style="width:100%;height:300px;"></div>
         </div>
-    </div>
+        <script>
+                var marker;
+                function myMap() {
+                    var mapProp= {
+                        center:new google.maps.LatLng(45.416775,-16.703790),
+                        zoom:5,
+                    };
+                    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+                    var geocoder = new google.maps.Geocoder;
+                    google.maps.event.addListener(map, "dblclick", function(event) {
+                        if(marker!=undefined){
+                            marker.setMap(null)
+                        }
+                        marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
+                            map: map,
+                            title: 'Ubicación de la vivienda'
+                        });
+                        geocodeLatLng(geocoder, map)
+                    });
+                }
+                function geocodeLatLng(geocoder, map) {
+                    geocoder.geocode({'location': marker.position}, function(results, status) {
+                        if (status === 'OK') {
+                            if (results[1]) {
+                                $("#lat").val(marker.getPosition().lat());
+                                $("#lng").val(marker.getPosition().lng());
+                                $("#ubicacion").val(results[1].formatted_address);
+                            } else {
+                                window.alert('No results found');
+                            }
+                        } else {
+                            window.alert('Geocoder failed due to: ' + status);
+                        }
+                    });
+                }
+               // google.maps.event.addDomListener(window, 'load', myMap);
+            
+            </script>
+         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDalvsgLoKDEz2ee2dzgJHFFvFGXuwsR2Q&callback=myMap"></script>
+		<input type="button" name="previous" class="previous action-button" value="Anterior" />
+		<input type="button" name="next" class="next action-button" value="Siguiente" />
+	</fieldset>
+	<fieldset>
+		<h2 class="fs-title">Adjuntar fotos</h2>
+		<h3 class="fs-subtitle">Tienes dos opciones: <b>Súbeles directamente desde tu equipo</b> o <b>arrástralas al recuadro de la parte derecha</b></h3>
+        <div id="fupload">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label class="control-label" for="fotos">Subir desde archivo:</label>
+                    <br>
+                    <input type="file" class="custom-file-input" name="fotos" id="fotos" accept=".png" multiple/>
+                </div>
+                <label class="control-label" for="fotos">Arrastrar aquí:</label>
+                <br>
+                <div class="col-sm-6 drag">
+                    <input type="file" id="fotosDrag" name="fotosDrag" accept=".png" multiple>
+                    <p id="dragTitle">O arrastra aquí tus imágenes</p>
+                </div>
+            </div>
+        </div>
+		<input type="button" name="previous" class="previous action-button" value="Anterior" />
+        <button type="submit" class="next action-button">Terminar</button>
+	</fieldset>
 </form>
+<script src="/js/steps.js"></script>
 <script>
     $(document).ready(function(){
         $('#fotosDrag').change(function () {
