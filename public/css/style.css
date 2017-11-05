@@ -371,3 +371,34 @@ form .stars span {
     background: #d9534f;
     cursor: pointer;
 }
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 16%;
+    color:white;
+    background: rgba(7, 7, 7, 0.74);
+  }
+  
+  
+  /* Custom footer CSS
+  -------------------------------------------------- */
+  .container {
+      padding-bottom: 16%;
+  }
+  .contenedor {
+    width: auto;
+    max-width: 100%;
+    padding: 0 16px;
+    margin-left: 2%;
+  }
+  .contenedor .text-muted {
+    margin: 20px 0;
+  }
+  .footer-list{
+    list-style: square;
+  }
+  .footer-list li a {
+    color: white;
+  }

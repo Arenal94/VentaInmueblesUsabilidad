@@ -5,6 +5,10 @@ module.exports = function(app, swig, gestorBD) {
 		var respuesta = swig.renderFile('views/bidentificacion.html', {});
 		res.send(respuesta);
 	});
+	app.get("/acercade", function(req, res) {
+		var respuesta = swig.renderFile('views/bacercade.html', {});
+		res.send(respuesta);
+	});
 	app.get("/contacto", function(req, res) {
 		var respuesta = swig.renderFile('views/bcontacto.html', {
 			vendedor :	req.query.vendedor,
