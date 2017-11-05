@@ -34,8 +34,8 @@ app.use(function(req,res,next){
     next();
 });
 
-//var sharp = require('sharp');
-//app.set('sharp',sharp);
+var sharp = require('sharp');
+app.set('sharp',sharp);
 
 var crypto = require('crypto');
 var fileUpload = require('express-fileupload');

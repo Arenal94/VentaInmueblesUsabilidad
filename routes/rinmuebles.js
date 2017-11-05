@@ -292,7 +292,7 @@ module.exports = function(app, swig, gestorBD) {
     }
     app.get('/inmuebles/agregar', function(req, res) {
         var respuesta = swig.renderFile('views/bagregar.html', {
-
+            userReq : req.session.usuario
         });
         res.send(respuesta);
     });
@@ -390,6 +390,7 @@ module.exports = function(app, swig, gestorBD) {
         var imagenes = []
         if (req.files.fotos != null) {
             if(req.files.fotos.length==undefined){
+
                 imagenes.push(req.files.fotos);
             }
             else{
@@ -399,7 +400,7 @@ module.exports = function(app, swig, gestorBD) {
             }
 
         }
-        if (req.files.fotos != null) {
+        if (req.files.fotosDrag != null) {
             if(req.files.fotosDrag.length==undefined){
                 imagenes.push(req.files.fotosDrag);
             }
