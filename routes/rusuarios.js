@@ -17,6 +17,14 @@ module.exports = function(app, swig, gestorBD) {
 		res.send(respuesta);
 	});
 
+	app.get("/contacta", function(req, res) {
+		var respuesta = swig.renderFile('views/bcontacta.html', {
+			vendedor :	req.query.vendedor,
+			userReq : req.session.usuario
+		});
+		res.send(respuesta);
+	});
+
 	app.post("/email", function(req, res) {
 	var mensaje = {
 		emailEmisor: req.body.email,
