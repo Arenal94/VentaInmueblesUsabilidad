@@ -1,9 +1,5 @@
 {% extends "base.html" %} {% block titulo %} Perfil de usuario {% endblock %} {% block contenido_principal %}
 <style>
-    body {
-        margin-top: 40px;
-    }
-
     .stepwizard-step p {
         margin-top: 10px;
     }
@@ -31,7 +27,6 @@
         width: 100%;
         height: 1px;
         background-color: #ccc;
-        z-order: 0;
 
     }
 
@@ -92,9 +87,35 @@
             if (isValid)
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
-
+        
         $('div.setup-panel div a.btn-primary').trigger('click');
     });
+</script>
+<script>
+      $( function() {
+            $('#datepicker').datetimepicker();
+
+            $("#particular").click( function(){
+                if( $(this).is(':checked') ){
+                    $(".empresa").css('display','none');
+                }
+            });
+            $("#empresa").click( function(){
+                if( $(this).is(':checked') ){
+                    $(".empresa").css('display','initial');
+                }
+            });
+            $("#llamadasi").click( function(){
+                if( $(this).is(':checked') ){
+                    $(".contacto").css('display','initial');
+                }
+            });
+            $("#llamadano").click( function(){
+                if( $(this).is(':checked') ){
+                    $(".contacto").css('display','none');
+                }
+            });
+         } );
 </script>
 <div class="container">
     <div class="stepwizard">
@@ -105,11 +126,11 @@
             </div>
             <div class="stepwizard-step">
                 <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                <p>Step 2</p>
+                <p>Datos sobre el negocio</p>
             </div>
             <div class="stepwizard-step">
                 <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                <p>Step 3</p>
+                <p>Forma de contacto</p>
             </div>
         </div>
     </div>
@@ -136,24 +157,92 @@
         <div class="row setup-content" id="step-2">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3> Datos de empresa </h3>
+                    <h3> Datos sobre el negocio </h3>
                     <div class="form-group">
-                        <select style="width: 120px;">
-                            <option>Empresa</option>
-                            <option>Particular</option>
-                        </select>
-                        <br>
-                        <label class="control-label">Nombre de empresa</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Nombre empresa" />
+                        <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="empresa" value="Empresa" checked>
+                              Empresa
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="radio" name="exampleRadios" id="particular" value="Particular">
+                              Particular
+                            </label>
+                          </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">Puesto</label>
-                        <input maxlength="200" type="text" required="required" class="form-control" placeholder="Puesto ocupado" />
-                    </div>
-                    <div class="form-group">
-                            <label class="control-label">Pais</label>
-                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Pais ocupado" />
+                    <div class="empresa">
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Nombre de empresa</label>
+                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Nombre empresa" />
                         </div>
+                        <div class="form-group col-sm-6">
+                                <label class="control-label">Pais de la empresa</label>
+                                <input maxlength="200" type="text" required="required" class="form-control" placeholder="Pais ocupado" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Puesto en la empresa</label>
+                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Puesto ocupado" />
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="col-sm-6">Esta el negocio de la empresa diversificado en más de un país</label>
+                            <div class="form-check col-sm-3">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Empresa" checked>
+                                  Sí
+                                </label>
+                              </div>
+                              <div class="form-check col-sm-3">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Particular">
+                                  No
+                                </label>
+                              </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                                <label class="col-sm-6">Dispone de inversión en otras empresas:</label>
+                                <div class="form-check col-sm-2">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Empresa" checked>
+                                      Sí
+                                    </label>
+                                  </div>
+                                  <div class="form-check col-sm-2">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Particular">
+                                      No
+                                    </label>
+                                  </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                                <label for="exampleFormControlSelect1">Sector al que pertenece la empresa</label>
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                  <option>Inversiones</option>
+                                  <option>Banca privada</option>
+                                  <option>Otros</option>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="particular">
+                            <div class="form-group col-sm-12">
+                                    <label class="control-label">Capital minimo disponible</label>
+                                    <input maxlength="10" type="number" required="required" class="form-control" placeholder="Numero de contacto" />
+                            </div>
+                            <div class="form-group col-sm-12">
+                                    <label class="control-label">Capital maximo disponible</label>
+                                    <input maxlength="10" type="number" required="required" class="form-control" placeholder="Numero de contacto" />
+                            </div>
+                            <div class="form-group col-sm-12">
+                                    <label for="exampleFormControlSelect2">Disponibilidad para realizar inversión</label>
+                                    <select class="form-control" id="exampleFormControlSelect2">
+                                      <option>Inmediato</option>
+                                      <option>Más de un mes</option>
+                                      <option>Más de seis meses</option>
+                                      <option>Más de un año</option>
+                                    </select>
+                            </div>
+                    </div>
                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
                 </div>
             </div>
@@ -161,7 +250,32 @@
         <div class="row setup-content" id="step-3">
             <div class="col-xs-12">
                 <div class="col-md-12">
-                    <h3> Step 3</h3>
+                    <h3>Forma de contacto</h3>
+                    <div class="form-group col-sm-12">
+                            <label class="col-sm-6">¿Concertamos una llamada?</label>
+                            <div class="form-check col-sm-2">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="exampleRadios3" id="llamadasi" value="Si" checked>
+                                  Sí
+                                </label>
+                              </div>
+                              <div class="form-check col-sm-2">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="exampleRadios3" id="llamadano" value="No">
+                                  No
+                                </label>
+                              </div>
+                    </div>
+                    <div class="contacto">
+                        <div class="form-group col-sm-6">
+                                <label class="control-label">Telefono de contacto</label>
+                                <input maxlength="10" type="number" required="required" class="form-control" placeholder="Numero de contacto" />
+                        </div>
+                        <div class="form-group col-sm-6">
+                                <label class="control-label">Día y hora para contactar</label>
+                                <input class="form-control" type="text" name="datepicker" id="datepicker">
+                        </div>
+                    </div>
                     <button class="btn btn-success btn-lg pull-right" type="submit">Finish!</button>
                 </div>
             </div>
