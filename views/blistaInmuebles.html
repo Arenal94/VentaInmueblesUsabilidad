@@ -63,7 +63,7 @@
     </div>
     {% endif %}
     {% for inmueble in inmuebles %}
-    <div class="col-lg-12 border padd">
+    <div class="col-sm-12 border padd">
         <a class ="cardListaInmuebles" href="/inmueble/{{ inmueble._id.toString() }}"> 
             <div class="col-xs-12 badges">
                 {% if (inmueble.fechaPublicacion|days) < 2  %}
