@@ -374,6 +374,9 @@ form .stars span {
 #footer {
     position: fixed;
     bottom: 0;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 16%;
