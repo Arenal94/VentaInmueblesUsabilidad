@@ -79,19 +79,18 @@
                 autoOpen:false,
                 buttons: [
                     {
-                        text: "Cancelar",
-                        click: function() {
-                            $( this ).dialog( "close" );
-                        }
-                    },
-                    {
                         text: "Sí",
                         click: function() {
                             window.location.href = "/inmueble/eliminar/"+id; 
                             $( this ).dialog( "close" );
                         }
+                    },
+                    {
+                        text: "Cancelar",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
                     }
-
                 ]
             });
             $( "#dialogConfirmarDelete" ).dialog('open');
